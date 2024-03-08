@@ -2,8 +2,8 @@ import './App.css'
 import Header from "./Header.tsx";
 import Footer from "./Footer.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./Home.tsx";
-import About from "./about/About.tsx";
+import Home from "./Pages/Home.tsx";
+import About from "./Pages/About.tsx";
 
 const router = createBrowserRouter([
     {
