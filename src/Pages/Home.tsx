@@ -1,16 +1,10 @@
-import IngredientCard from "../Components/IngredientCard.tsx";
-import Button from "../Components/Button.tsx";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import IngredientLine from "../Components/IngredientLine.tsx";
+import IngredientTypes from "../utils/IngredientTypes.ts";
 
 async function getAllIngredients() {
     const response = await axios.get('http://127.0.0.1:8080/api/ingredients/getAll');
-    return response.data;
-}
-
-async function createIngredient(name: string, desc: string) {
-    const data = {"name": name, "desc": desc};
-    const response = await axios.post('http://127.0.0.1:8080/api/ingredients/create', data);
     return response.data;
 }
 
@@ -22,8 +16,6 @@ async function deleteIngredient(uuid: string) {
 function Home() {
 
     const [ingredients, setIngredients] = useState([]);
-    const [nameInput, setNameInput] = useState("");
-    const [descInput, setDescInput] = useState("");
 
     const fetchIngredients = async () => {
         const ingredientsData = await getAllIngredients();
@@ -34,19 +26,12 @@ function Home() {
         fetchIngredients();
     }, []);
 
-    const clickAddIngredientHandler = async () => {
-        if (nameInput != "" && descInput != "") {
-            await createIngredient(nameInput, descInput);
-            fetchIngredients();
-            setNameInput("");
-            setDescInput("");
-        }
-    }
-
     const clickIngredientHandler = async (uuid: string) => {
         await deleteIngredient(uuid);
         fetchIngredients();
     }
+
+    const ingredientTypes = Object.keys(IngredientTypes).filter((v) => isNaN(Number(v)))
 
     return (
         <>
@@ -54,18 +39,16 @@ function Home() {
                 <div className={"flex"}>
                     Home Page
                 </div>
-                <div className={"flex items-center justify-center"}>
-                    {ingredients.map(ingredient => (
-                        <IngredientCard ingredientJson={ingredient} clickIngredientHandler={clickIngredientHandler} />
-                    ))}
+                <div className={"flex flex-col items-center justify-center"}>
+                    {ingredientTypes.map(type => {
+                        return <IngredientLine
+                            ingredients={ingredients.filter(ingredient => ingredient.type === type)}
+                            clickIngredientHandler={clickIngredientHandler}
+                            fetchIngredients={fetchIngredients}
+                            type={type}
+                        />
+                    })}
                 </div>
-                <input value={nameInput} onChange={(e) => setNameInput(e.target.value)}
-                        className={"my-2"}/>
-                <input value={descInput} onChange={(e) => setDescInput(e.target.value)}
-                       className={"my-2"}/>
-                <Button onClick={clickAddIngredientHandler}>
-                    Ajouter un ingrédient
-                </Button>
             </div>
         </>
     )
