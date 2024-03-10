@@ -13,7 +13,11 @@ function IngredientLine({children, ingredients, className, clickIngredientHandle
 
     return (
         <>
-            <div className={`flex items-center justify-center ` + className}>
+            <div className={`relative flex items-center justify-center border-2 rounded-2xl my-4 ` + className}>
+                <div
+                    className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white text-gray-800 font-bold px-4 rounded-full">
+                    {type}
+                </div>
                 <div className={"flex"}>
                     {ingredients.map(ingredient => (
                         <IngredientCard

@@ -26,16 +26,13 @@ function NewIngredientForm({fetchIngredients, type} :
     }
 
     return (
-        <div className={"flex flex-col"}>
-            <div className={"flex"}>
-                Add a new {type}
-            </div>
+        <div className={"flex flex-col mr-3 my-2"}>
             <input value={nameInput} onChange={(e) => setNameInput(e.target.value)}
-                   className={"my-2 flex"}/>
+                   className={"my-1 flex"}/>
             <input value={descInput} onChange={(e) => setDescInput(e.target.value)}
-                   className={"my-2 flex"}/>
-            <Button onClick={clickAddIngredientHandler}>
-                Ajouter un ingrédient
+                   className={"my-1 flex"}/>
+            <Button onClick={clickAddIngredientHandler} className={"text-xs p-0.5"}>
+                Ajouter un {type}
             </Button>
         </div>
     )

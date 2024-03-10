@@ -36,9 +36,6 @@ function Home() {
     return (
         <>
             <div className={"flex items-center justify-center flex-col"}>
-                <div className={"flex"}>
-                    Home Page
-                </div>
                 <div className={"flex flex-col items-center justify-center"}>
                     {ingredientTypes.map(type => {
                         return <IngredientLine
