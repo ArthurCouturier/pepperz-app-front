@@ -20,10 +20,10 @@ function IngredientCard({children, ingredientJson, className, clickIngredientHan
     return (
         <>
             <Button className={`p-2 mx-3 my-3 border-2 rounded-xl flex flex-col ${className}`} onClick={handler}>
-                <div>
+                <div className={"font-bold"}>
                     {ingredientName}
                 </div>
-                <div>
+                <div className={"text-xs"}>
                     {ingredientDesc}
                 </div>
                 <div>

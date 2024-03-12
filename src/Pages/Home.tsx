@@ -1,7 +1,7 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import IngredientLine from "../Components/IngredientLine.tsx";
-import IngredientTypes from "../utils/IngredientTypes.ts";
+import IngredientTypeNames from "../utils/IngredientTypeNames.ts";
 
 async function getAllIngredients() {
     const response = await axios.get('http://127.0.0.1:8080/api/ingredients/getAll');
@@ -31,7 +31,7 @@ function Home() {
         fetchIngredients();
     }
 
-    const ingredientTypes = Object.keys(IngredientTypes).filter((v) => isNaN(Number(v)))
+    const ingredientTypes = Object.keys(IngredientTypeNames).filter((v) => isNaN(Number(v)))
 
     return (
         <>

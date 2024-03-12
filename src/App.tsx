@@ -4,6 +4,7 @@ import Footer from "./Footer.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Pages/Home.tsx";
 import About from "./Pages/About.tsx";
+import Profile from "./Pages/Profile.tsx";
 
 const router = createBrowserRouter([
     {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     {
         path: '/about',
         element: <About />
+    },
+    {
+        path: '/profile',
+        element: <Profile />
     }
 ])
 
@@ -20,11 +25,11 @@ function App() {
 
   return (
     <>
-        <Header />
-        <div className={"h-[80vh]"} id={"root"}>
+        <Header className={"bg-gray-800 bg-opacity-60"}/>
+        <div className={"h-[80vh] overflow-y-auto scrollbar-hide"} id={"root"}>
             <RouterProvider router={router}/>
         </div>
-        <Footer />
+        <Footer className={"bg-gray-800 bg-opacity-60"}/>
     </>
   )
 }

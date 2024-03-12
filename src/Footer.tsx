@@ -1,7 +1,7 @@
-function Footer() {
+function Footer({className}: HeaderProps) {
     return (
         <>
-            <div className={"h-[10vh] flex items-center justify-center"}>
+            <div className={`h-[10vh] flex items-center justify-center ` + className}>
                 Footer
             </div>
         </>

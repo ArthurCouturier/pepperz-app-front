@@ -1,6 +1,7 @@
 import Button from "./Button.tsx";
 import {useState} from "react";
 import axios from "axios";
+import IngredientTypeNames from "../utils/IngredientTypeNames.ts";
 
 function NewIngredientForm({fetchIngredients, type} :
                                {fetchIngredients: () => void,
@@ -26,13 +27,13 @@ function NewIngredientForm({fetchIngredients, type} :
     }
 
     return (
-        <div className={"flex flex-col mr-3 my-2"}>
+        <div className={"flex flex-col mx-3 my-2"}>
             <input value={nameInput} onChange={(e) => setNameInput(e.target.value)}
                    className={"my-1 flex"}/>
             <input value={descInput} onChange={(e) => setDescInput(e.target.value)}
                    className={"my-1 flex"}/>
             <Button onClick={clickAddIngredientHandler} className={"text-xs p-0.5"}>
-                Ajouter un {type}
+                Ajouter un {IngredientTypeNames[type]}
             </Button>
         </div>
     )
