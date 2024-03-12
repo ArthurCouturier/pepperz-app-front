@@ -1,14 +1,9 @@
 enum IngredientTypeNames {
-    VEGETABLE="Légume",
-    FRUIT="Fruit",
-    HERB="Herbe",
-    SPICE="Epice",
-    MEAT="Viande",
-    SEAFOOD="Fruit de mer",
-    DAIRY="Laitier",
-    GRAIN="Graine",
-    USTENSIL="Ustensile",
-    OTHER="Autre"
+    BLACK="Noir",
+    WHITE="Blanc",
+    RED="Rouge",
+    GREEN="Vert",
+    MIX="Mixe"
 }
 
 export default IngredientTypeNames;

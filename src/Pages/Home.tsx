@@ -4,12 +4,12 @@ import IngredientLine from "../Components/IngredientLine.tsx";
 import IngredientTypeNames from "../utils/IngredientTypeNames.ts";
 
 async function getAllIngredients() {
-    const response = await axios.get('http://127.0.0.1:8080/api/ingredients/getAll');
+    const response = await axios.get('http://127.0.0.1:8080/api/peppers/getAll');
     return response.data;
 }
 
 async function deleteIngredient(uuid: string) {
-    const response = await axios.delete('http://127.0.0.1:8080/api/ingredients/deleteByUUid/' + uuid);
+    const response = await axios.delete('http://127.0.0.1:8080/api/peppers/deleteByUUid/' + uuid);
     return response.data;
 }
 
