@@ -1,28 +1,30 @@
 import Button from "./Button.tsx";
 import {useState} from "react";
 import axios from "axios";
-import IngredientTypeNames from "../utils/IngredientTypeNames.ts";
+import {getPepperTypeName} from "../utils/PepperTypeNames.ts";
 
-function NewIngredientForm({fetchIngredients, type} :
-                               {fetchIngredients: () => void,
-                               type: string}
-                           ) {
+function NewPepperForm({fetchPeppers, type}:
+                           {
+                               fetchPeppers: () => void,
+                               type: string
+                           }
+) {
 
     const [nameInput, setNameInput] = useState("");
     const [originInput, setOriginInput] = useState("");
     const [kgPriceInput, setKgPriceInput] = useState("");
     const [descInput, setDescInput] = useState("");
 
-    async function createIngredient(name: string, origin: string, kgPrice: string, desc: string) {
+    async function createPepper(name: string, origin: string, kgPrice: string, desc: string) {
         const data = {"name": name, "origin": origin, "kgPrice": kgPrice, "desc": desc, "type": type};
-        const response = await axios.post('http://127.0.0.1:8080/api/peppers/create', data);
+        const response = await axios.post('https://pepperz-back.vercel.app/api/peppers/create', data);
         return response.data;
     }
 
-    const clickAddIngredientHandler = async () => {
+    const clickAddPepperHandler = async () => {
         if (nameInput != "" && descInput != "") {
-            await createIngredient(nameInput, originInput, kgPriceInput, descInput);
-            fetchIngredients();
+            await createPepper(nameInput, originInput, kgPriceInput, descInput);
+            fetchPeppers();
             setNameInput("");
             setOriginInput("");
             setKgPriceInput("")
@@ -44,11 +46,11 @@ function NewIngredientForm({fetchIngredients, type} :
             <input value={descInput} onChange={(e) => setDescInput(e.target.value)}
                    placeholder={"desc"}
                    className={"my-1 flex"}/>
-            <Button onClick={clickAddIngredientHandler} className={"text-xs p-0.5"}>
-                Ajouter un poivre {IngredientTypeNames[type]}
+            <Button onClick={clickAddPepperHandler} className={"text-xs p-0.5"}>
+                Ajouter un poivre {getPepperTypeName(type)}
             </Button>
         </div>
     )
 }
 
-export default NewIngredientForm;
+export default NewPepperForm;

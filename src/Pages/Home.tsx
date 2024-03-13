@@ -1,50 +1,52 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
-import IngredientLine from "../Components/IngredientLine.tsx";
-import IngredientTypeNames from "../utils/IngredientTypeNames.ts";
+import PepperLine from "../Components/PepperLine.tsx";
+import PepperTypeNames from "../utils/PepperTypeNames.ts";
+import Pepper from "../interfaces/PepperInterface.ts";
 
-async function getAllIngredients() {
-    const response = await axios.get('http://127.0.0.1:8080/api/peppers/getAll');
+async function getAllPeppers() {
+    const response = await axios.get('https://pepperz-back.vercel.app/api/peppers/getAll');
     return response.data;
 }
 
-async function deleteIngredient(uuid: string) {
-    const response = await axios.delete('http://127.0.0.1:8080/api/peppers/deleteByUUid/' + uuid);
+async function deletePepper(uuid: string) {
+    const response = await axios.delete('https://pepperz-back.vercel.app/api/peppers/deleteByUUid/' + uuid);
     return response.data;
 }
 
 function Home() {
 
-    const [ingredients, setIngredients] = useState([]);
+    const [peppers, setPeppers] = useState<Pepper[]>([]);
 
-    const fetchIngredients = async () => {
-        const ingredientsData = await getAllIngredients();
-        setIngredients(ingredientsData);
+    const fetchPeppers = async () => {
+        const peppersData = await getAllPeppers();
+        setPeppers(peppersData);
     };
 
     useEffect(() => {
-        fetchIngredients();
+        fetchPeppers();
     }, []);
 
-    const clickIngredientHandler = async (uuid: string) => {
-        await deleteIngredient(uuid);
-        fetchIngredients();
+    const clickPepperHandler = async (uuid: string) => {
+        await deletePepper(uuid);
+        fetchPeppers();
     }
 
-    const ingredientTypes = Object.keys(IngredientTypeNames).filter((v) => isNaN(Number(v)))
+    const pepperTypes = Object.keys(PepperTypeNames).filter((v) => isNaN(Number(v)))
 
     return (
         <>
             <div className={"flex items-center justify-center flex-col"}>
                 <div className={"flex flex-col items-center justify-center"}>
-                    {ingredientTypes.map(type => {
-                        return <IngredientLine
-                            ingredients={ingredients.filter(ingredient => ingredient.type === type)}
-                            clickIngredientHandler={clickIngredientHandler}
-                            fetchIngredients={fetchIngredients}
+                    {pepperTypes.map(type => (
+                        <PepperLine
+                            key={type}
+                            peppers={peppers.filter(pepper => pepper.type === type)}
+                            clickPepperHandler={clickPepperHandler}
+                            fetchPeppers={fetchPeppers}
                             type={type}
                         />
-                    })}
+                    ))}
                 </div>
             </div>
         </>
