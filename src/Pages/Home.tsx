@@ -5,12 +5,12 @@ import PepperTypeNames from "../utils/PepperTypeNames.ts";
 import Pepper from "../interfaces/PepperInterface.ts";
 
 async function getAllPeppers() {
-    const response = await axios.get('https://pepperz-back.vercel.app/api/peppers/getAll');
+    const response = await axios.get('http://localhost:8080/api/peppers/getAll');
     return response.data;
 }
 
 async function deletePepper(uuid: string) {
-    const response = await axios.delete('https://pepperz-back.vercel.app/api/peppers/deleteByUUid/' + uuid);
+    const response = await axios.delete('http://localhost:8080/api/peppers/deleteByUUid/' + uuid);
     return response.data;
 }
 
@@ -27,9 +27,9 @@ function Home() {
         fetchPeppers();
     }, []);
 
-    const clickPepperHandler = async (uuid: string) => {
+    const deletePepperHandler = async (uuid: string) => {
         await deletePepper(uuid);
-        fetchPeppers();
+        await fetchPeppers();
     }
 
     const pepperTypes = Object.keys(PepperTypeNames).filter((v) => isNaN(Number(v)))
@@ -42,7 +42,7 @@ function Home() {
                         <PepperLine
                             key={type}
                             peppers={peppers.filter(pepper => pepper.type === type)}
-                            clickPepperHandler={clickPepperHandler}
+                            deletePepperHandler={deletePepperHandler}
                             fetchPeppers={fetchPeppers}
                             type={type}
                         />

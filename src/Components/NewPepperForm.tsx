@@ -17,7 +17,7 @@ function NewPepperForm({fetchPeppers, type}:
 
     async function createPepper(name: string, origin: string, kgPrice: string, desc: string) {
         const data = {"name": name, "origin": origin, "kgPrice": kgPrice, "desc": desc, "type": type};
-        const response = await axios.post('https://pepperz-back.vercel.app/api/peppers/create', data);
+        const response = await axios.post('http://localhost:8080/api/peppers/create', data);
         return response.data;
     }
 

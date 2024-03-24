@@ -4,12 +4,12 @@ import {getPepperTypeName} from "../utils/PepperTypeNames.ts";
 import {getPepperTypeColor} from "../utils/PepperTypeColors.ts";
 import Pepper from "../interfaces/PepperInterface.ts";
 
-function PepperLine({children, peppers, className, clickPepperHandler, fetchPeppers, type}:
+function PepperLine({children, peppers, className, deletePepperHandler, fetchPeppers, type}:
                         {
                             children?: React.ReactNode,
                             peppers: Pepper[],
                             className?: string,
-                            clickPepperHandler: (name: string) => Promise<void>,
+                            deletePepperHandler: (name: string) => Promise<void>,
                             fetchPeppers: () => void,
                             type: string
                         }) {
@@ -22,11 +22,11 @@ function PepperLine({children, peppers, className, clickPepperHandler, fetchPepp
                     {getPepperTypeName(type)}
                 </div>
                 <div className={"flex items-center justify-center mt-3 mb-1"}>
-                    <div className={"flex"}>
+                    <div className={"flex justify-center items-center"}>
                         {peppers.map(pepper => (
                             <PepperCard
                                 pepperJson={pepper}
-                                clickPepperHandler={clickPepperHandler}
+                                deletePepperHandler={deletePepperHandler}
                             />
                         ))}
                     </div>

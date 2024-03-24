@@ -10,7 +10,7 @@ function LoginForm({setLogInfo} : {setLogInfo: () => void }) {
     const clickLoginHandler = async () => {
         if (login != "" && password != "") {
             const data = {"login": login, "password": password};
-            const response = await axios.post('https://pepperz-back.vercel.app/api/users/login', data);
+            const response = await axios.post('http://localhost:8080/api/users/login', data);
             if (response.data.type == "success") {
                 setLogInfo();
             }

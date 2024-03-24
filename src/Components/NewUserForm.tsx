@@ -11,7 +11,7 @@ function NewUserForm() {
     const clickAddUserHandler = async () => {
         if (name != "" && email != "" && password != "") {
             const data = {"name": name, "email": email, "password": password};
-            const response = await axios.post('https://pepperz-back.vercel.app/api/users/create', data);
+            const response = await axios.post('http://localhost:8080/api/users/create', data);
             return response.data;
         }
     }
