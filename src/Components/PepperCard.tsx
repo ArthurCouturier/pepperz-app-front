@@ -1,6 +1,7 @@
 import Button from "./Button.tsx";
 import React, {useState} from "react";
 import Pepper from "../interfaces/PepperInterface.ts";
+import EditSVG from "./SVGs/EditSVG.tsx";
 
 interface PepperCardProps {
     children?: React.ReactNode;
@@ -42,9 +43,16 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
                     onClick={seeDetailsHandler}
             >
 
-                <div className={`flex font-bold justify-center items-center ${isHovered ? 'scale-150' : 'scale-100'}`}>
-                    {pepperName}
+                <div className={"flex flex-row justify-center items-center relative"}>
+                    <div
+                        className={`flex font-bold justify-center items-center transform transition duration-300 ${isHovered ? 'scale-150' : 'scale-100'}`}>
+                        {pepperName}
+                    </div>
+                    {seeDetails && (
+                        <EditSVG className={`font-semibold absolute right-0 mr-3`}/>
+                    )}
                 </div>
+
                 <div className={"flex text-sm justify-center items-center"}>
                     <div className={"italic mx-1"}>
                         {pepperOrigin}
@@ -70,7 +78,7 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
                             Spec: {pepperSpecifications}
                         </div>
                         <Button className={`bg-red-500 text-xs w-32 flex justify-center items-center my-1`}
-                            onClick={() => deleteHandler()}
+                                onClick={() => deleteHandler()}
                         >
                             Delete Pepper
                         </Button>
