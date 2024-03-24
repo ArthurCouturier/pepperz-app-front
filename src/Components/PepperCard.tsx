@@ -2,6 +2,7 @@ import Button from "./Button.tsx";
 import React, {useState} from "react";
 import Pepper from "../interfaces/PepperInterface.ts";
 import EditSVG from "./SVGs/EditSVG.tsx";
+import SpecificationButton from "./SpecificationButton.tsx";
 
 interface PepperCardProps {
     children?: React.ReactNode;
@@ -34,7 +35,7 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
         <>
             <Button className={`p-2 mx-3 my-3 border-2 rounded-xl flex flex-col transform transition-all duration-300 
             ${className} 
-            ${isHovered ? 'w-72' : 'w-36 h-16'}`}
+            ${isHovered ? 'min-w-72' : 'min-w-36 h-16'}`}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => {
                         setIsHovered(false);
@@ -43,13 +44,15 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
                     onClick={seeDetailsHandler}
             >
 
-                <div className={"flex flex-row justify-center items-center relative"}>
+                <div className={"flex flex-row justify-center items-center relative w-full"}>
                     <div
-                        className={`flex font-bold justify-center items-center transform transition duration-300 ${isHovered ? 'scale-150' : 'scale-100'}`}>
+                        className={`flex-grow font-bold justify-center items-center transform transition-all duration-300 ${isHovered ? 'scale-150' : 'scale-100'} flex justify-center`}>
                         {pepperName}
                     </div>
                     {seeDetails && (
-                        <EditSVG className={`font-semibold absolute right-0 mr-3`}/>
+                        <div className={`flex font-semibold justify-end items-center mr-3 ml-3`}>
+                            <EditSVG href={"/about"}/>
+                        </div>
                     )}
                 </div>
 
@@ -75,7 +78,9 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
                 {seeDetails ?
                     <div className={`flex justify-center items-center flex-col`}>
                         <div className={"flex text-xs"}>
-                            Spec: {pepperSpecifications}
+                            Spec: {pepperSpecifications.split(";").map(spec => {
+                                return <SpecificationButton>{spec}</SpecificationButton>
+                        })}
                         </div>
                         <Button className={`bg-red-500 text-xs w-32 flex justify-center items-center my-1`}
                                 onClick={() => deleteHandler()}
