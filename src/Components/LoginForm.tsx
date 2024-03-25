@@ -2,6 +2,8 @@ import Button from "./Button.tsx";
 import {useState} from "react";
 import axios from "axios";
 
+const backendUrl: string = import.meta.env.VITE_BACKEND_URL;
+
 function LoginForm({setLogInfo} : {setLogInfo: () => void }) {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
@@ -10,7 +12,7 @@ function LoginForm({setLogInfo} : {setLogInfo: () => void }) {
     const clickLoginHandler = async () => {
         if (login != "" && password != "") {
             const data = {"login": login, "password": password};
-            const response = await axios.post('http://localhost:8080/api/users/login', data);
+            const response = await axios.post(backendUrl + '/api/users/login', data);
             if (response.data.type == "success") {
                 setLogInfo();
             }

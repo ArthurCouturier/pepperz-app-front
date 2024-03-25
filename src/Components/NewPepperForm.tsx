@@ -3,6 +3,8 @@ import {useState} from "react";
 import axios from "axios";
 import {getPepperTypeName} from "../utils/PepperTypeNames.ts";
 
+const backendUrl: string = import.meta.env.VITE_BACKEND_URL;
+
 function NewPepperForm({fetchPeppers, type}:
                            {
                                fetchPeppers: () => void,
@@ -17,7 +19,7 @@ function NewPepperForm({fetchPeppers, type}:
 
     async function createPepper(name: string, origin: string, kgPrice: string, desc: string) {
         const data = {"name": name, "origin": origin, "kgPrice": kgPrice, "desc": desc, "type": type};
-        const response = await axios.post('http://localhost:8080/api/peppers/create', data);
+        const response = await axios.post(backendUrl + '/api/peppers/create', data);
         return response.data;
     }
 

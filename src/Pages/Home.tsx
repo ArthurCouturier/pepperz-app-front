@@ -4,13 +4,15 @@ import PepperLine from "../Components/PepperLine.tsx";
 import PepperTypeNames from "../utils/PepperTypeNames.ts";
 import Pepper from "../interfaces/PepperInterface.ts";
 
+const backendUrl: string = import.meta.env.VITE_BACKEND_URL;
+
 async function getAllPeppers() {
-    const response = await axios.get('http://localhost:8080/api/peppers/getAll');
+    const response = await axios.get(backendUrl + '/api/peppers/getAll');
     return response.data;
 }
 
 async function deletePepper(uuid: string) {
-    const response = await axios.delete('http://localhost:8080/api/peppers/deleteByUUid/' + uuid);
+    const response = await axios.delete(backendUrl + '/api/peppers/deleteByUUid/' + uuid);
     return response.data;
 }
 

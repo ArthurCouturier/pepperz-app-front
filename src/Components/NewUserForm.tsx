@@ -2,6 +2,8 @@ import {useState} from "react";
 import Button from "./Button.tsx";
 import axios from "axios";
 
+const backendUrl: string = import.meta.env.VITE_BACKEND_URL;
+
 function NewUserForm() {
 
     const [name, setName] = useState("");
@@ -11,7 +13,7 @@ function NewUserForm() {
     const clickAddUserHandler = async () => {
         if (name != "" && email != "" && password != "") {
             const data = {"name": name, "email": email, "password": password};
-            const response = await axios.post('http://localhost:8080/api/users/create', data);
+            const response = await axios.post(backendUrl + '/api/users/create', data);
             return response.data;
         }
     }
