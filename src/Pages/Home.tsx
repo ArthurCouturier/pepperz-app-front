@@ -1,38 +1,16 @@
-import axios from "axios";
 import {useEffect, useState} from "react";
 import PepperLine from "../Components/PepperLine.tsx";
 import PepperTypeNames from "../utils/PepperTypeNames.ts";
 import Pepper from "../interfaces/PepperInterface.ts";
-
-const backendUrl: string = import.meta.env.VITE_BACKEND_URL;
-
-async function getAllPeppers() {
-    const response = await axios.get(backendUrl + '/api/peppers/getAll');
-    return response.data;
-}
-
-async function deletePepper(uuid: string) {
-    const response = await axios.delete(backendUrl + '/api/peppers/deleteByUUid/' + uuid);
-    return response.data;
-}
+import {deletePepperHandler, fetchPeppers} from "../api/client.ts";
 
 function Home() {
 
     const [peppers, setPeppers] = useState<Pepper[]>([]);
-
-    const fetchPeppers = async () => {
-        const peppersData = await getAllPeppers();
-        setPeppers(peppersData);
-    };
-
+    
     useEffect(() => {
-        fetchPeppers();
+        fetchPeppers(setPeppers);
     }, []);
-
-    const deletePepperHandler = async (uuid: string) => {
-        await deletePepper(uuid);
-        await fetchPeppers();
-    }
 
     const pepperTypes = Object.keys(PepperTypeNames).filter((v) => isNaN(Number(v)))
 
@@ -44,8 +22,8 @@ function Home() {
                         <PepperLine
                             key={type}
                             peppers={peppers.filter(pepper => pepper.type === type)}
-                            deletePepperHandler={deletePepperHandler}
-                            fetchPeppers={fetchPeppers}
+                            deletePepperHandler={(uuid: string) => deletePepperHandler(uuid, setPeppers)}
+                            fetchPeppers={() => fetchPeppers(setPeppers)}
                             type={type}
                         />
                     ))}

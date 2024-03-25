@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Pages/Home.tsx";
 import About from "./Pages/About.tsx";
 import Profile from "./Pages/Profile.tsx";
+import PepperPage from "./Pages/PepperPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
     {
         path: '/profile',
         element: <Profile />
+    },
+    {
+        path: '/pepper/:pepperUuid',
+        element: <PepperPage />
     }
 ])
 
