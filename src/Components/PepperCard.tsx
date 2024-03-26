@@ -51,7 +51,7 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
                     </div>
                     {seeDetails && (
                         <div className={`flex font-semibold justify-end items-center mr-3 ml-3`}>
-                            <EditSVG href={"/about"}/>
+                            <EditSVG href={`/pepper/${pepperUuid}`}/>
                         </div>
                     )}
                 </div>

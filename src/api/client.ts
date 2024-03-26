@@ -18,6 +18,11 @@ export async function fetchPeppers(setPeppers: (pepperData: Pepper[]) => void) {
     setPeppers(peppersData);
 }
 
+export async function getPepper(uuid: string) {
+    const response = await axios.get(backendUrl + `/api/peppers/getByUuid/${uuid}`);
+    return response.data;
+}
+
 export async function deletePepperHandler(uuid: string, setPeppers: (pepperData: Pepper[]) => void) {
     await deletePepper(uuid);
     await fetchPeppers(setPeppers);
