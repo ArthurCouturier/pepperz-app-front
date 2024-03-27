@@ -1,5 +1,5 @@
 import {useState} from "react";
-import Button from "./Button.tsx";
+import Button from "../Buttons/Button.tsx";
 import axios from "axios";
 
 const backendUrl: string = import.meta.env.VITE_BACKEND_URL;

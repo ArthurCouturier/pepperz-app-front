@@ -1,7 +1,7 @@
-import Button from "./Button.tsx";
+import Button from "../Buttons/Button.tsx";
 import {useState} from "react";
 import axios from "axios";
-import {getPepperTypeName} from "../utils/PepperTypeNames.ts";
+import {getPepperTypeName} from "../../utils/PepperTypeNames.ts";
 
 const backendUrl: string = import.meta.env.VITE_BACKEND_URL;
 

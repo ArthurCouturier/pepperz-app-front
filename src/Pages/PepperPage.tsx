@@ -3,7 +3,7 @@ import Pepper from "../interfaces/PepperInterface.ts";
 import {getPepper, updatePepper} from "../api/client.ts";
 import {useEffect, useState} from "react";
 import EditSVG from "../Components/SVGs/EditSVG.tsx";
-import Button from "../Components/Button.tsx";
+import Button from "../Components/Buttons/Button.tsx";
 import EditField from "../Components/EditField.tsx";
 import PepperTypeNames from "../utils/PepperTypeNames.ts";
 

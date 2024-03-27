@@ -1,8 +1,8 @@
-import Button from "./Button.tsx";
+import Button from "./Buttons/Button.tsx";
 import React, {useState} from "react";
 import Pepper from "../interfaces/PepperInterface.ts";
 import EditSVG from "./SVGs/EditSVG.tsx";
-import SpecificationButton from "./SpecificationButton.tsx";
+import SpecificationButton from "./Buttons/SpecificationButton.tsx";
 
 interface PepperCardProps {
     children?: React.ReactNode;

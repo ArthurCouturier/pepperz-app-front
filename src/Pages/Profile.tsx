@@ -1,5 +1,5 @@
-import NewUserForm from "../Components/NewUserForm.tsx";
-import LoginForm from "../Components/LoginForm.tsx";
+import NewUserForm from "../Components/Forms/NewUserForm.tsx";
+import LoginForm from "../Components/Forms/LoginForm.tsx";
 import {useState} from "react";
 import User from "../models/User.ts";
 

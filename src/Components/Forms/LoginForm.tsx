@@ -1,4 +1,4 @@
-import Button from "./Button.tsx";
+import Button from "../Buttons/Button.tsx";
 import {useState} from "react";
 import axios from "axios";
 
