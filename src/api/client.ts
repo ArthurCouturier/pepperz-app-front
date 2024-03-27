@@ -29,14 +29,18 @@ export async function deletePepperHandler(uuid: string, setPeppers: (pepperData:
     await fetchPeppers(setPeppers);
 }
 
-function checkSpecifications(peppers: Pepper) {
-    const specs: string[] = peppers.specifications.split(";");
-    specs.forEach(spec => {
-        if (!Object.values(PepperSpecificationsEnum).includes(spec)) {
+function checkSpecifications(pepper: Pepper): boolean {
+    console.log("COUCOUCOCUC " + pepper.specifications.length);
+    if (pepper.specifications.length === 0) {
+        return true;
+    }
+    const specs: string[] = pepper.specifications.split(";");
+    for (const spec of specs) {
+        if (!Object.keys(PepperSpecificationsEnum).includes(spec)) {
             console.error(`Invalid specification: ${spec}`);
             return false;
         }
-    })
+    }
     return true;
 }
 

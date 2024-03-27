@@ -2,7 +2,7 @@ import Button from "./Buttons/Button.tsx";
 import React, {useState} from "react";
 import Pepper from "../interfaces/PepperInterface.ts";
 import EditSVG from "./SVGs/EditSVG.tsx";
-import SpecificationButton from "./Buttons/SpecificationButton.tsx";
+import SpecificationLine from "./Lines/SpecificationLine.tsx";
 
 interface PepperCardProps {
     children?: React.ReactNode;
@@ -78,11 +78,10 @@ function PepperCard({children, pepperJson, className, deletePepperHandler}: Pepp
                 {seeDetails ?
                     <div className={`flex justify-center items-center flex-col`}>
                         <div className={"flex text-xs"}>
-                            {pepperSpecifications ? (<>
-                                    Spec: {pepperSpecifications.split(";").map((spec: string) => (
-                                    <SpecificationButton specValue={spec.trim()}/>
-                            ))}</>) : (<>
-                                    No specifications defined
+                            {pepperSpecifications ? (
+                                <SpecificationLine specifications={pepperSpecifications}/>
+                            ) : (<>
+                                No specifications defined
                             </>)}
                         </div>
                         <Button className={`bg-red-500 text-xs w-32 flex justify-center items-center my-1`}

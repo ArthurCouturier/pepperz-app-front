@@ -4,8 +4,9 @@ import {getPepper, updatePepper} from "../api/client.ts";
 import {useEffect, useState} from "react";
 import EditSVG from "../Components/SVGs/EditSVG.tsx";
 import Button from "../Components/Buttons/Button.tsx";
-import EditField from "../Components/EditField.tsx";
+import EditStringField from "../Components/EditFields/EditStringField.tsx";
 import PepperTypeNames from "../utils/PepperTypeNames.ts";
+import EditSpecificationsLine from "../Components/Lines/EditSpecificationsLine.tsx";
 
 function PepperPage() {
 
@@ -59,11 +60,11 @@ function PepperPage() {
                             <EditSVG />
                         </div>
                     )}
-                    <EditField className="text-5xl font-bold text-center mx-3"
-                               pepper={pepper}
-                               field={"name"}
-                               setPepper={setPepper}
-                               editable={editMode}
+                    <EditStringField className="text-5xl font-bold text-center mx-3"
+                                     pepper={pepper}
+                                     field={"name"}
+                                     setPepper={setPepper}
+                                     editable={editMode}
                     />
                     {editMode ? (<></>) : (
                         <div className="flex-1 flex justify-end">
@@ -71,36 +72,35 @@ function PepperPage() {
                         </div>
                     )}
                 </div>
-                <EditField className="text-2xl mt-3"
-                           pepper={pepper}
-                           field={"type"}
-                           setPepper={setPepper}
-                           editable={editMode}
+                <EditStringField className="text-2xl mt-3"
+                                 pepper={pepper}
+                                 field={"type"}
+                                 setPepper={setPepper}
+                                 editable={editMode}
                 />
-                <EditField className="mt-1"
-                           pepper={pepper}
-                           field={"origin"}
-                           setPepper={setPepper}
-                           editable={editMode}
+                <EditStringField className="mt-1"
+                                 pepper={pepper}
+                                 field={"origin"}
+                                 setPepper={setPepper}
+                                 editable={editMode}
                 />
-                <EditField className="text-2xl mt-3"
-                           pepper={pepper}
-                           field={"desc"}
-                           setPepper={setPepper}
-                           editable={editMode}
+                <EditStringField className="text-2xl mt-3"
+                                 pepper={pepper}
+                                 field={"desc"}
+                                 setPepper={setPepper}
+                                 editable={editMode}
                 />
-                <EditField className="mt-1"
-                           pepper={pepper}
-                           field={"specifications"}
-                           setPepper={setPepper}
-                           editable={editMode}
+                <EditSpecificationsLine className="mt-1"
+                                 pepper={pepper}
+                                 setPepper={setPepper}
+                                 editable={editMode}
                 />
                 <div className={`flex flex-row justify-center items-center`}>
-                    <EditField className="mt-1 mx-1"
-                               pepper={pepper}
-                               field={"kgPrice"}
-                               setPepper={setPepper}
-                               editable={editMode}
+                    <EditStringField className="mt-1 mx-1"
+                                     pepper={pepper}
+                                     field={"kgPrice"}
+                                     setPepper={setPepper}
+                                     editable={editMode}
                     /> €/kg
                 </div>
                 {editMode ? (

@@ -1,4 +1,4 @@
-import Pepper from "../interfaces/PepperInterface.ts";
+import Pepper from "../../interfaces/PepperInterface.ts";
 
 interface EditFieldProps {
     pepper: Pepper,
@@ -8,7 +8,7 @@ interface EditFieldProps {
     editable?: boolean
 }
 
-function EditField({ pepper, field, setPepper, className, editable }: EditFieldProps) {
+function EditStringField({ pepper, field, setPepper, className, editable }: EditFieldProps) {
     return editable ? (
         <input
             className={className}
@@ -22,4 +22,4 @@ function EditField({ pepper, field, setPepper, className, editable }: EditFieldP
     );
 }
 
-export default EditField;
+export default EditStringField;

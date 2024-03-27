@@ -1,8 +1,8 @@
-import PepperCard from "./PepperCard.tsx";
-import NewPepperForm from "./Forms/NewPepperForm.tsx";
-import {getPepperTypeName} from "../utils/PepperTypeNames.ts";
-import {getPepperTypeColor} from "../utils/PepperTypeColors.ts";
-import Pepper from "../interfaces/PepperInterface.ts";
+import PepperCard from "../PepperCard.tsx";
+import NewPepperForm from "../Forms/NewPepperForm.tsx";
+import {getPepperTypeName} from "../../utils/PepperTypeNames.ts";
+import {getPepperTypeColor} from "../../utils/PepperTypeColors.ts";
+import Pepper from "../../interfaces/PepperInterface.ts";
 
 function PepperLine({children, peppers, className, deletePepperHandler, fetchPeppers, type}:
                         {

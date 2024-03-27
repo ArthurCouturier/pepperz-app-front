@@ -3,7 +3,7 @@ enum PepperSpecifications {
     STRONG="Fort",
     SWEET="Doux",
     SPICY="Epicé",
-    MILD="Bénin"
+    MILD="Délicat"
 }
 
 export function getSpecificationValue(key: string): string {

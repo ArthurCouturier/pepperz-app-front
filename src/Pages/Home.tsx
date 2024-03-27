@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import PepperLine from "../Components/PepperLine.tsx";
+import PepperLine from "../Components/Lines/PepperLine.tsx";
 import PepperTypeNames from "../utils/PepperTypeNames.ts";
 import Pepper from "../interfaces/PepperInterface.ts";
 import {deletePepperHandler, fetchPeppers} from "../api/client.ts";
