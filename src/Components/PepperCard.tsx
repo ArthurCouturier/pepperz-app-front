@@ -11,7 +11,7 @@ interface PepperCardProps {
     deletePepperHandler: (name: string) => Promise<void>;
 }
 
-function PepperCard({ children, pepperJson, className, deletePepperHandler }: PepperCardProps) {
+function PepperCard({children, pepperJson, className, deletePepperHandler}: PepperCardProps) {
 
     const pepperUuid: string = pepperJson.uuid;
     const pepperName: string = pepperJson.name;
@@ -79,9 +79,9 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
                     <div className={`flex justify-center items-center flex-col`}>
                         <div className={"flex text-xs"}>
                             {pepperSpecifications ? (<>
-                                Spec: {pepperSpecifications.split(";").map(spec => {
-                                return <SpecificationButton>{spec}</SpecificationButton>
-                            })}</>) : (<>
+                                    Spec: {pepperSpecifications.split(";").map((spec: string) => (
+                                    <SpecificationButton specValue={spec.trim()}/>
+                            ))}</>) : (<>
                                     No specifications defined
                             </>)}
                         </div>

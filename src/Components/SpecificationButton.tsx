@@ -1,16 +1,16 @@
-import Button from "./Button.tsx";
+import Button from "./Button";
+import PepperSpecificationsEnum, {getSpecificationValue} from "../utils/PepperSpecificationsEnum.ts";
 
 interface SpecificationButtonProps {
-    children?: React.ReactNode,
+    specValue: keyof typeof PepperSpecificationsEnum | string;
     className?: string;
 }
 
-function SpecificationButton({ children, className }: SpecificationButtonProps) {
+export default function SpecificationButton({ specValue, className }: SpecificationButtonProps) {
+
     return (
         <Button className={`${className}`}>
-            {children}
+            {getSpecificationValue(specValue)}
         </Button>
-    )
+    );
 }
-
-export default SpecificationButton;
