@@ -1,13 +1,24 @@
 import {Params, useParams} from "react-router-dom";
 import Pepper from "../interfaces/PepperInterface.ts";
-import {getPepper} from "../api/client.ts";
+import {getPepper, updatePepper} from "../api/client.ts";
 import {useEffect, useState} from "react";
 import EditSVG from "../Components/SVGs/EditSVG.tsx";
+import Button from "../Components/Button.tsx";
+import EditField from "../Components/EditField.tsx";
+import PepperTypeNames from "../utils/PepperTypeNames.ts";
 
 function PepperPage() {
 
     const {pepperUuid}: Readonly<Params<string>> = useParams<{ pepperUuid: string }>();
-    const [pepper, setPepper] = useState<Pepper | null>(null);
+    const [pepper, setPepper] = useState<Pepper>({
+        uuid: '',
+        name: '',
+        type: PepperTypeNames.BLACK,
+        origin: '',
+        desc: '',
+        kgPrice: 0,
+        specifications: '',
+    });
 
     useEffect(() => {
         if (pepperUuid) {
@@ -16,33 +27,89 @@ function PepperPage() {
                 setPepper(fetchedPepper);
             };
             fetchPepper();
+
+            if (pepper) {
+                setPepper({
+                    uuid: pepper.uuid,
+                    name: pepper.name,
+                    type: pepper.type,
+                    origin: pepper.origin,
+                    desc: pepper.desc,
+                    specifications: pepper.specifications,
+                    kgPrice: pepper.kgPrice,
+                });
+            }
         }
     }, [pepperUuid]);
 
-    if (!pepperUuid) {
-        return <div>No pepper UUID provided</div>;
+    const [editMode, setEditMode] = useState<boolean>(false);
+
+    const handleFinishEdit = async () => {
+        await updatePepper(pepper);
+        setEditMode(false);
     }
 
-    return (
+    return !pepperUuid ? <div>No pepper UUID provided</div> : (
         <>
             <div className="flex flex-col items-center mx-5 my-5">
                 <div className="flex items-center">
                     {/* On crée une div similaire invisible pour équilibrer et bien centrer le titre */}
-                    <div className="flex-1 invisible">
-                        <EditSVG />
-                    </div>
-                    <div className="text-5xl font-bold text-center mx-3">{pepper?.name}</div>
-                    <div className="flex-1 flex justify-end">
-                        <EditSVG href={`/pepper/${pepperUuid}`} />
-                    </div>
+                    {editMode ? (<></>) : (
+                        <div className="flex-1 invisible">
+                            <EditSVG />
+                        </div>
+                    )}
+                    <EditField className="text-5xl font-bold text-center mx-3"
+                               pepper={pepper}
+                               field={"name"}
+                               setPepper={setPepper}
+                               editable={editMode}
+                    />
+                    {editMode ? (<></>) : (
+                        <div className="flex-1 flex justify-end">
+                            <EditSVG onClick={() => {setEditMode(true)}} />
+                        </div>
+                    )}
                 </div>
-                <div className="text-2xl mt-3">{pepper?.type}</div>
-                <div className="mt-1">{pepper?.origin}</div>
-                <div className="text-2xl mt-3">{pepper?.desc}</div>
-                <div className="mt-1">
-                    {pepper?.specifications ? "Specifications: " + pepper.specifications : "Ce poivre n'a pas de spécification"}
+                <EditField className="text-2xl mt-3"
+                           pepper={pepper}
+                           field={"type"}
+                           setPepper={setPepper}
+                           editable={editMode}
+                />
+                <EditField className="mt-1"
+                           pepper={pepper}
+                           field={"origin"}
+                           setPepper={setPepper}
+                           editable={editMode}
+                />
+                <EditField className="text-2xl mt-3"
+                           pepper={pepper}
+                           field={"desc"}
+                           setPepper={setPepper}
+                           editable={editMode}
+                />
+                <EditField className="mt-1"
+                           pepper={pepper}
+                           field={"specifications"}
+                           setPepper={setPepper}
+                           editable={editMode}
+                />
+                <div className={`flex flex-row justify-center items-center`}>
+                    <EditField className="mt-1 mx-1"
+                               pepper={pepper}
+                               field={"kgPrice"}
+                               setPepper={setPepper}
+                               editable={editMode}
+                    /> €/kg
                 </div>
-                <div className="mt-1">{pepper?.kgPrice && `${pepper.kgPrice} €/kg`}</div>
+                {editMode ? (
+                    <Button onClick={handleFinishEdit}
+                            className={`my-5`}
+                    >
+                        Terminer
+                    </Button>
+                ) : <></>}
             </div>
         </>
     )

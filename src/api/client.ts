@@ -1,5 +1,6 @@
 import axios from "axios";
 import Pepper from "../interfaces/PepperInterface.ts";
+import PepperSpecificationsEnum from "../utils/PepperSpecificationsEnum.ts";
 
 const backendUrl: string = import.meta.env.VITE_BACKEND_URL;
 
@@ -26,4 +27,24 @@ export async function getPepper(uuid: string) {
 export async function deletePepperHandler(uuid: string, setPeppers: (pepperData: Pepper[]) => void) {
     await deletePepper(uuid);
     await fetchPeppers(setPeppers);
+}
+
+function checkSpecifications(peppers: Pepper) {
+    const specs: string[] = peppers.specifications.split(";");
+    specs.forEach(spec => {
+        if (!Object.values(PepperSpecificationsEnum).includes(spec)) {
+            console.error(`Invalid specification: ${spec}`);
+            return false;
+        }
+    })
+    return true;
+}
+
+export async function updatePepper(pepper: Pepper) {
+    if (!checkSpecifications(pepper)) {
+        console.error(`Invalid specification while updating for pepper: ${pepper}`);
+        return false;
+    }
+    const response = await axios.put(backendUrl + '/api/peppers/update/' + pepper.uuid, pepper);
+    return response.data;
 }

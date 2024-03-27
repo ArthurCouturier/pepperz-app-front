@@ -78,9 +78,12 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
                 {seeDetails ?
                     <div className={`flex justify-center items-center flex-col`}>
                         <div className={"flex text-xs"}>
-                            Spec: {pepperSpecifications.split(";").map(spec => {
+                            {pepperSpecifications ? (<>
+                                Spec: {pepperSpecifications.split(";").map(spec => {
                                 return <SpecificationButton>{spec}</SpecificationButton>
-                        })}
+                            })}</>) : (<>
+                                    No specifications defined
+                            </>)}
                         </div>
                         <Button className={`bg-red-500 text-xs w-32 flex justify-center items-center my-1`}
                                 onClick={() => deleteHandler()}
