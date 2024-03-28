@@ -12,8 +12,10 @@ export default function SpecificationButton({ specValue, onClick, className }: S
     const spec: string = getSpecificationValue(specValue);
 
     return (
-        <Button className={`${className}`} title={`Voir tous les poivres ${spec}`} onClick={onClick}>
-            {spec}
-        </Button>
+        <a href={`/specification/${spec}`}>
+            <Button className={`${className}`} title={`Voir tous les poivres ${spec}`} onClick={onClick}>
+                {spec}
+            </Button>
+        </a>
     );
 }

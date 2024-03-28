@@ -1,11 +1,12 @@
 import './App.css'
 import Header from "./Header.tsx";
 import Footer from "./Footer.tsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Home from "./Pages/Home.tsx";
 import About from "./Pages/About.tsx";
 import Profile from "./Pages/Profile.tsx";
 import PepperPage from "./Pages/PepperPage.tsx";
+import SpecificationPage from "./Pages/SpecificationPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     {
         path: '/pepper/:pepperUuid',
         element: <PepperPage />
+    },
+    {
+        path: '/specification/:specification',
+        element: <SpecificationPage />
     }
 ])
 

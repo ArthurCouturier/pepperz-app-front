@@ -1,6 +1,7 @@
 import axios from "axios";
 import Pepper from "../interfaces/PepperInterface.ts";
 import PepperSpecificationsEnum from "../utils/PepperSpecificationsEnum.ts";
+import PepperSpecifications from "../utils/PepperSpecificationsEnum.ts";
 
 const backendUrl: string = import.meta.env.VITE_BACKEND_URL;
 
@@ -19,10 +20,32 @@ export async function fetchPeppers(setPeppers: (pepperData: Pepper[]) => void) {
     setPeppers(peppersData);
 }
 
-export async function getPepper(uuid: string) {
+export async function getPepper(uuid: string): Promise<Pepper> {
     const response = await axios.get(backendUrl + `/api/peppers/getByUuid/${uuid}`);
     return response.data;
 }
+
+export async function getPeppers(specification: string): Promise<Pepper[]> {
+    const response = await axios.get(backendUrl + `/api/peppers/getBySpecification/${specification}`);
+    return response.data;
+}
+
+function getKeyByValue(value: string): string {
+    return Object.keys(PepperSpecifications).find(
+        key => PepperSpecifications[key as keyof typeof PepperSpecifications] === value
+    ) as string;
+}
+
+export const fetchPeppersWithSpecification = async (specification: string | undefined, setPeppers: React.Dispatch<React.SetStateAction<Pepper[]>>) => {
+    if (specification) {
+        try {
+            const fetchedPeppers = await getPeppers(getKeyByValue(specification));
+            setPeppers(fetchedPeppers);
+        } catch (error) {
+            console.error("Failed to fetch peppers:", error);
+        }
+    }
+};
 
 export async function deletePepperHandler(uuid: string, setPeppers: (pepperData: Pepper[]) => void) {
     await deletePepper(uuid);
@@ -30,7 +53,6 @@ export async function deletePepperHandler(uuid: string, setPeppers: (pepperData:
 }
 
 function checkSpecifications(pepper: Pepper): boolean {
-    console.log("COUCOUCOCUC " + pepper.specifications.length);
     if (pepper.specifications.length === 0) {
         return true;
     }
