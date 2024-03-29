@@ -33,7 +33,7 @@ function PepperCard({children, pepperJson, className, deletePepperHandler}: Pepp
 
     return (
         <>
-            <Button className={`p-2 mx-3 my-3 border-2 rounded-xl flex flex-col transform transition-all duration-300 
+            <Button className={`p-2 mx-3 my-3 border-2 rounded-xl flex flex-col transform transition-all duration-300 overflow-hidden
             ${className} 
             ${isHovered ? 'min-w-72' : 'min-w-36 h-16'}`}
                     onMouseEnter={() => setIsHovered(true)}

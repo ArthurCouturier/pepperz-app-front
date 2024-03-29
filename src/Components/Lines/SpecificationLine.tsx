@@ -10,7 +10,7 @@ function SpecificationLine({className, specifications}: SpecificationLineProps) 
     return (
         <div className={className}>
             {specifications.split(";").map((spec: string) => (
-                <SpecificationButton specValue={spec.trim()}/>
+                <SpecificationButton specValue={spec.trim()} editMode={false}/>
             ))}
         </div>
     )

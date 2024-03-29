@@ -6,7 +6,7 @@ function Footer({className}: FooterProps) {
     return (
         <>
             <div className={`h-[3vh] flex items-center justify-center ` + className}>
-                Footer
+                <a href={`https://www.arthurcouturier.fr`}>Take a look at my portfolio!</a>
             </div>
         </>
     )

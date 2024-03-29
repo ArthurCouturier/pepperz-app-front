@@ -31,6 +31,7 @@ function EditSpecificationLine({pepper, setPepper, editable, className}: EditSpe
                     specValue={specKey as keyof typeof PepperSpecificationsEnum}
                     onClick={() => toggleSpecification(specKey as keyof typeof PepperSpecificationsEnum)}
                     className={`m-1 font-bold ${pepperSpecsArray.includes(specKey) ? 'bg-green-500 text-gray-800' : ''}`}
+                    editMode={true}
                 />
             ))}
         </div>

@@ -52,7 +52,7 @@ function PepperPage() {
 
     return !pepperUuid ? <div>No pepper UUID provided</div> : (
         <>
-            <div className="flex flex-col items-center mx-5 my-5">
+            <div className="flex flex-col items-center mx-5 my-6">
                 <div className="flex items-center">
                     {/* On crée une div similaire invisible pour équilibrer et bien centrer le titre */}
                     {editMode ? (<></>) : (

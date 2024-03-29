@@ -4,18 +4,33 @@ import PepperSpecificationsEnum, {getSpecificationValue} from "../../utils/Peppe
 interface SpecificationButtonProps {
     specValue: keyof typeof PepperSpecificationsEnum | string,
     onClick?: () => void,
+    editMode?: boolean,
     className?: string
 }
 
-export default function SpecificationButton({ specValue, onClick, className }: SpecificationButtonProps) {
+interface SpecButtonProps {
+    spec: string,
+    onClick?: () => void,
+    className?: string
+}
+
+function SpecButton({ spec, onClick, className }: SpecButtonProps) {
+    return (
+        <Button className={`${className}`} title={`Voir tous les poivres ${spec}`} onClick={onClick}>
+            {spec}
+        </Button>
+    )
+}
+
+export default function SpecificationButton({ specValue, onClick, editMode, className }: SpecificationButtonProps) {
 
     const spec: string = getSpecificationValue(specValue);
 
-    return (
+    return editMode ? (
+        <SpecButton spec={spec} onClick={onClick} className={className} />
+        ) : (
         <a href={`/specification/${spec}`}>
-            <Button className={`${className}`} title={`Voir tous les poivres ${spec}`} onClick={onClick}>
-                {spec}
-            </Button>
+            <SpecButton spec={spec} onClick={onClick} className={className} />
         </a>
     );
 }

@@ -15,7 +15,7 @@ function SpecificationPage() {
     return (
         <div className={"flex flex-col justify-between items-center"}>
             <div className="flex flex-col font-bold text-3xl my-5">
-                Liste des poivres {specification?.toLowerCase()}s
+                Liste des poivres au caractère {specification?.toLowerCase()}
             </div>
             {peppers.map((pepper: Pepper) => {
                 return (
