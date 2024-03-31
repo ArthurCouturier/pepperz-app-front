@@ -1,4 +1,4 @@
-import logo from "./assets/logos/logo1.png";
+import logo from "../assets/logos/logo1.png";
 
 interface HeaderProps {
     className?: string;
@@ -12,9 +12,10 @@ function Header({className}: HeaderProps) {
                     <img src={logo} className="h-full object-contain" alt="logo"/>
                 </a>
                 <div className="flex flex-1">
-                    <a href={"/"} className="ml-4 font-bold">Home</a>
-                    <a href={"/about"} className="ml-4 font-bold">About</a>
-                    <a href={"/profile"} className="ml-4 font-bold">Profile</a>
+                    <a href={"/"} className="ml-4 font-bold">Menu</a>
+                    <a href={"/about"} className="ml-5 font-bold">A propos</a>
+                    <a href={"/profile"} className="ml-5 font-bold">Profil</a>
+                    <a href={"/pepper"} className="ml-5 font-bold">Tous les poivres</a>
                 </div>
             </div>
         </>

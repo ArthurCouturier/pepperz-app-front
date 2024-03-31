@@ -1,4 +1,4 @@
-import PepperCard from "../PepperCard.tsx";
+import PepperCard from "../Cards/PepperCard.tsx";
 import NewPepperForm from "../Forms/NewPepperForm.tsx";
 import {getPepperTypeName} from "../../utils/PepperTypeNames.ts";
 import {getPepperTypeColor} from "../../utils/PepperTypeColors.ts";

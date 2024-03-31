@@ -18,6 +18,7 @@ export async function deletePepper(uuid: string) {
 export async function fetchPeppers(setPeppers: (pepperData: Pepper[]) => void) {
     const peppersData: Pepper[] = await getAllPeppers();
     setPeppers(peppersData);
+    return peppersData;
 }
 
 export async function getPepper(uuid: string): Promise<Pepper> {

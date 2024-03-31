@@ -1,14 +1,14 @@
-import Button from "./Buttons/Button.tsx";
+import Button from "../Buttons/Button.tsx";
 import React, {useState} from "react";
-import Pepper from "../interfaces/PepperInterface.ts";
-import EditSVG from "./SVGs/EditSVG.tsx";
-import SpecificationLine from "./Lines/SpecificationLine.tsx";
+import Pepper from "../../interfaces/PepperInterface.ts";
+import EditSVG from "../SVGs/EditSVG.tsx";
+import SpecificationLine from "../Lines/SpecificationLine.tsx";
 
 interface PepperCardProps {
     children?: React.ReactNode;
     pepperJson: Pepper;
     className?: string;
-    deletePepperHandler: (name: string) => Promise<void>;
+    deletePepperHandler?: (name: string) => Promise<void>;
 }
 
 function PepperCard({children, pepperJson, className, deletePepperHandler}: PepperCardProps) {
@@ -28,7 +28,9 @@ function PepperCard({children, pepperJson, className, deletePepperHandler}: Pepp
     }
 
     const deleteHandler = async () => {
-        await deletePepperHandler(pepperUuid);
+        if (deletePepperHandler) {
+            await deletePepperHandler(pepperUuid);
+        }
     }
 
     return (
@@ -84,11 +86,14 @@ function PepperCard({children, pepperJson, className, deletePepperHandler}: Pepp
                                 No specifications defined
                             </>)}
                         </div>
-                        <Button className={`bg-red-500 text-xs w-32 flex justify-center items-center my-1`}
-                                onClick={() => deleteHandler()}
-                        >
-                            Delete Pepper
-                        </Button>
+                        {deletePepperHandler ?
+                            <Button className={`bg-red-500 text-xs w-32 flex justify-center items-center my-1`}
+                                    onClick={() => deleteHandler()}
+                            >
+                                Delete Pepper
+                            </Button> : (<></>)
+                        }
+
                     </div>
                     :
                     <></>

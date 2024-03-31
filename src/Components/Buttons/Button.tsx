@@ -4,10 +4,11 @@ interface ButtonProps {
     onMouseEnter?: React.MouseEventHandler,
     onMouseLeave?: React.MouseEventHandler,
     title?: string,
-    className?: string
+    img?: string,
+    className?: string,
 }
 
-function Button({ children, onClick, onMouseEnter, onMouseLeave, title, className }: ButtonProps) {
+function Button({ children, onClick, onMouseEnter, onMouseLeave, title, img, className }: ButtonProps) {
     return (
         <button
             className={`p-2 mx-3 border-2 rounded-xl ${className}`}
@@ -16,6 +17,12 @@ function Button({ children, onClick, onMouseEnter, onMouseLeave, title, classNam
             onClick={onClick}
             title={title}
         >
+            {img ?
+                <img className={"w-[20vh]"}
+                    src={img}/>
+                :
+                <></>
+            }
             {children}
         </button>
     )
