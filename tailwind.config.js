@@ -5,8 +5,22 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'josefin': ['Josefin Sans', 'sans-serif'],
+        'cinzel': ['Cinzel', 'sans-serif'],
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    function({ addUtilities }) {
+      const newUtilities = {
+        '.bg-force': {
+          backgroundColor: '#242424 !important',
+        },
+      };
+      addUtilities(newUtilities);
+    }
+  ],
 }
 

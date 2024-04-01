@@ -50,8 +50,8 @@ function App() {
     // overflow-y-auto
   return (
     <>
-        <Header className={"bg-gray-800 bg-white"}/>
-        <div className={"flex-grow h-[87vh] overflow-y-scroll"} id={"root"}>
+        <Header className={"bg-gray-800 bg-white font-josefin"}/>
+        <div className={"bg-force flex-grow h-[87vh] overflow-y-scroll font-cinzel"} id={"root"}>
             <RouterProvider router={router}/>
         </div>
         <Footer className={"bg-opacity-10 bg-white mt-auto"}/>

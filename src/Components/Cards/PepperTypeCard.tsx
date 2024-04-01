@@ -38,7 +38,9 @@ function PepperTypeCard({className, type}: PepperCardProps) {
                     }}
                     img={images[type]}
             >
-                Poivres {PepperTypeNames[type].toLowerCase()}s
+                <div className={"mt-2 mx-auto text-center"}>
+                    Poivres {PepperTypeNames[type].toLowerCase()}s
+                </div>
             </Button>
         </a>
     )
