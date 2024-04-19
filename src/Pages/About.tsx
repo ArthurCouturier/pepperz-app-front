@@ -12,9 +12,6 @@ function About() {
                     and
                     <a href="https://github.com/ArthurCouturier/projet-cuisine-front"> front</a> projects.
                 </div>
-                <div>Actually, I am looking for beginning my freelance life, so if you want to work with me, it would be an honor.
-                    (Really, I need to eat and drink coffee, please =) )
-                </div>
             </div>
 
         </>
