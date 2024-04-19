@@ -4,7 +4,7 @@ import Footer from "./Components/Footer.tsx";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Home from "./Pages/Home.tsx";
 import About from "./Pages/About.tsx";
-import Profile from "./Pages/Profile.tsx";
+import ProfilePage from "./Pages/ProfilePage.tsx";
 import PepperPage from "./Pages/PepperPage.tsx";
 import SpecificationPage from "./Pages/SpecificationPage.tsx";
 import AllPeppers from "./Pages/AllPeppers.tsx";
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/profile',
-        element: <Profile />
+        element: <ProfilePage />
     },
     {
         path: '/pepper/:pepperUuid',
@@ -46,17 +46,15 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-
-    // overflow-y-auto
-  return (
-    <>
-        <Header className={"bg-gray-800 bg-white font-josefin"}/>
-        <div className={"bg-force flex-grow h-[87vh] overflow-y-scroll font-cinzel"} id={"root"}>
-            <RouterProvider router={router}/>
+    return (
+        <div>
+            <Header className={"bg-gray-800 bg-white font-josefin"}/>
+            <div className={"bg-force flex-grow h-[87vh] overflow-y-scroll font-cinzel"} id={"root"}>
+                <RouterProvider router={router}/>
+            </div>
+            <Footer className={"bg-opacity-10 bg-white mt-auto"}/>
         </div>
-        <Footer className={"bg-opacity-10 bg-white mt-auto"}/>
-    </>
-  )
+    );
 }
 
 export default App
