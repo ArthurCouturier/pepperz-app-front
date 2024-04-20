@@ -19,14 +19,14 @@ function App() {
         id={"root"}
       >
         <Routes>
-          <Route path="" element={<Home />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/pepper" element={<AllPeppers />} />
-          <Route path="/pepper/:id" element={<PepperPage />} />
-          <Route path="/specification" element={<SpecificationPage />} />
-          <Route path="/pepper/type/:type" element={<PeppersTypePage />} />
+          <Route path="" element={< Home />} />
+          < Route path="/" element={< Home />} />
+          < Route path="/about" element={< About />} />
+          < Route path="/profile" element={< ProfilePage />} />
+          < Route path="/pepper" element={< AllPeppers />} />
+          < Route path="/pepper/:id" element={< PepperPage />} />
+          < Route path="/specification" element={< SpecificationPage />} />
+          < Route path="/pepper/type/:type" element={< PeppersTypePage />} />
         </Routes>
       </div>
       <Footer className={"bg-opacity-10 bg-white mt-auto"} />

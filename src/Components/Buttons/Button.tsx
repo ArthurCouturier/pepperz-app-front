@@ -18,8 +18,8 @@ function Button({ children, onClick, onMouseEnter, onMouseLeave, title, img, cla
             title={title}
         >
             {img ?
-                <img className={"w-[20vh]"}
-                    src={img}/>
+                <img className={"w-[20vh] rounded-md"}
+                    src={img} />
                 :
                 <></>
             }
