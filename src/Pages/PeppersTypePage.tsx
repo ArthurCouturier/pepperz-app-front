@@ -1,13 +1,13 @@
-import {Params, useParams} from "react-router-dom";
-import {getPepperTypeName} from "../utils/PepperTypeNames.ts";
-import {useEffect, useState} from "react";
+import { Params, useParams } from "react-router-dom";
+import { getPepperTypeName } from "../utils/PepperTypeNames.ts";
+import { useEffect, useState } from "react";
 import Pepper from "../interfaces/PepperInterface.ts";
-import {fetchPeppers} from "../api/client.ts";
+import { fetchPeppers } from "../api/client.ts";
 import PepperCard from "../Components/Cards/PepperCard.tsx";
 
 function PeppersTypePage() {
 
-    const {pepperType}: Readonly<Params<string>> = useParams<{ pepperType: string }>();
+    const { pepperType }: Readonly<Params<string>> = useParams<{ pepperType: string }>();
     const type: string = getPepperTypeName(pepperType as string);
 
     const [peppers, setPeppers] = useState<Pepper[]>([]);
@@ -24,7 +24,7 @@ function PeppersTypePage() {
                     Tous les poivres {type.toLowerCase()}s
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-                    {peppers.map(pepper => <PepperCard className="flex" pepperJson={pepper}/>)}
+                    {peppers.map(pepper => <PepperCard className="flex" pepperJson={pepper} />)}
                 </div>
             </div>
         </div>
