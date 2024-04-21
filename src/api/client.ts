@@ -75,3 +75,16 @@ export async function updatePepper(pepper: Pepper) {
     const response = await axios.put(backendUrl + '/api/peppers/update/' + pepper.uuid, pepper);
     return response.data;
 }
+
+export async function sendToken(token: string) {
+    const response = await axios.get(
+        backendUrl + '/api/users/auth/google',
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: "application/json",
+            }
+        }
+    );
+    return response.data;
+}

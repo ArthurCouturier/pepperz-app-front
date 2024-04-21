@@ -12,7 +12,7 @@ function ProfilePage() {
                 profile ? (
                     <div>
                         <img src={profile.picture} alt="user image" />
-                        <h3>User Logged in: {user?.client_id}</h3>
+                        <h3>User Logged in: {user.client_id}</h3>
                         <p>Name: {profile.name}</p>
                         <p>Email Address: {profile.email}</p>
                         <button className={`bg-[#1a1a1a]`} onClick={logOut}>Log out</button>
