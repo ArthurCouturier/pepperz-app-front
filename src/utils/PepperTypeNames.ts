@@ -3,7 +3,7 @@ enum PepperTypeNames {
     WHITE="Blanc",
     RED="Rouge",
     GREEN="Vert",
-    MIX="Mixe"
+    // MIX="Mixe"
 }
 
 export function getPepperTypeName(type: string): string {

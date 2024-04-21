@@ -3,12 +3,13 @@ import {
   TokenClientConfig,
   useGoogleLogin,
 } from "@react-oauth/google";
-import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { AuthContextType, UserProfile } from "../../models/AuthModels";
+import { sendToken } from "../../api/client";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
@@ -28,19 +29,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       setUser(tokenResponse);
-      const response = await axios.get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${tokenResponse.access_token}`,
-        {
-          headers: {
-            Authorization: `Bearer ${tokenResponse.access_token}`,
-            Accept: "application/json",
-          },
-        }
-      );
+      const response = await sendToken(tokenResponse.access_token);
+      console.log("Login Success:", response)
       const userProfile = {
-        name: response.data.name,
-        email: response.data.email,
-        picture: response.data.picture,
+        name: response.name,
+        email: response.email,
+        picture: response.picture,
+        id: response.id
       };
       setProfile(userProfile);
       localStorage.setItem("user", JSON.stringify(tokenResponse));

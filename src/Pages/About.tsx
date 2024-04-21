@@ -1,7 +1,7 @@
 function About() {
     return (
         <>
-            <div className="items-center justify-center space-y-4"> {/* Ajoutez 'space-y-4' pour un espacement vertical entre les éléments */}
+            <div className="items-center justify-center space-y-4 font-serif"> {/* Ajoutez 'space-y-4' pour un espacement vertical entre les éléments */}
                 <div>This webapp is under construction. It's made by CoutCout.</div>
                 <div className="flex items-center justify-center">
                     <a href="www.arthurcouturier.fr">You can find other projects I did here</a>

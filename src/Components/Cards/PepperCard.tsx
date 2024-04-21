@@ -1,5 +1,5 @@
 import Button from "../Buttons/Button.tsx";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Pepper from "../../interfaces/PepperInterface.ts";
 import EditSVG from "../SVGs/EditSVG.tsx";
 import SpecificationLine from "../Lines/SpecificationLine.tsx";
@@ -11,7 +11,7 @@ interface PepperCardProps {
     deletePepperHandler?: (name: string) => Promise<void>;
 }
 
-function PepperCard({children, pepperJson, className, deletePepperHandler}: PepperCardProps) {
+function PepperCard({ children, pepperJson, className, deletePepperHandler }: PepperCardProps) {
 
     const pepperUuid: string = pepperJson.uuid;
     const pepperName: string = pepperJson.name;
@@ -36,24 +36,29 @@ function PepperCard({children, pepperJson, className, deletePepperHandler}: Pepp
     return (
         <>
             <Button className={`p-2 mx-3 my-3 border-2 rounded-xl flex flex-col transform transition-all duration-300 overflow-hidden
-            ${className} 
-            ${isHovered ? 'min-w-72' : 'min-w-36 h-16'}`}
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => {
-                        setIsHovered(false);
-                        setSeeDetails(false);
-                    }}
-                    onClick={seeDetailsHandler}
+            ${className}
+            ${isHovered ? '' : 'h-16'}`}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => {
+                    setIsHovered(false);
+                    setSeeDetails(false);
+                }}
+                onClick={seeDetailsHandler}
             >
 
                 <div className={"flex flex-row justify-center items-center relative w-full"}>
+                    {seeDetails && (
+                        <div className={`flex font-semibold justify-start items-center mr-3 ml-3`}>
+                            <EditSVG className={`opacity-0`} />
+                        </div>
+                    )}
                     <div
                         className={`flex-grow font-bold justify-center items-center transform transition-all duration-300 ${isHovered ? 'scale-150' : 'scale-100'} flex justify-center`}>
                         {pepperName}
                     </div>
                     {seeDetails && (
                         <div className={`flex font-semibold justify-end items-center mr-3 ml-3`}>
-                            <EditSVG href={`/pepper/${pepperUuid}`}/>
+                            <EditSVG href={`/pepper/${pepperUuid}`} />
                         </div>
                     )}
                 </div>
@@ -81,14 +86,14 @@ function PepperCard({children, pepperJson, className, deletePepperHandler}: Pepp
                     <div className={`flex justify-center items-center flex-col`}>
                         <div className={"flex text-xs"}>
                             {pepperSpecifications ? (
-                                <SpecificationLine specifications={pepperSpecifications}/>
+                                <SpecificationLine specifications={pepperSpecifications} />
                             ) : (<>
                                 No specifications defined
                             </>)}
                         </div>
                         {deletePepperHandler ?
                             <Button className={`bg-red-500 text-xs w-32 flex justify-center items-center my-1`}
-                                    onClick={() => deleteHandler()}
+                                onClick={() => deleteHandler()}
                             >
                                 Delete Pepper
                             </Button> : (<></>)
