@@ -30,12 +30,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     onSuccess: async (tokenResponse) => {
       setUser(tokenResponse);
       const response = await sendToken(tokenResponse.access_token);
-      console.log("Login Success:", response)
       const userProfile = {
         name: response.name,
         email: response.email,
         picture: response.picture,
-        id: response.id
+        id: response.id,
+        shouldBeAdmin: response.shouldBeAdmin
       };
       setProfile(userProfile);
       localStorage.setItem("user", JSON.stringify(tokenResponse));
