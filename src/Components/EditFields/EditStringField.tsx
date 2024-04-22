@@ -11,12 +11,13 @@ interface EditFieldProps {
 function EditStringField({ pepper, field, setPepper, className, editable }: EditFieldProps) {
     return editable ? (
         <input
-            className={className}
+            className={`w-full ${className}`}
             value={pepper[field]}
             onChange={(e) => setPepper({ ...pepper, [field]: e.target.value })}
+            key={field}
         />
     ) : (
-        <div className={className}>
+        <div className={className} key={field}>
             {pepper[field]}
         </div>
     );

@@ -1,7 +1,7 @@
-import {Params, useParams} from "react-router-dom";
+import { Params, useParams } from "react-router-dom";
 import Pepper from "../interfaces/PepperInterface.ts";
-import {getPepper, updatePepper} from "../api/client.ts";
-import {useEffect, useState} from "react";
+import { getPepper, updatePepper } from "../api/client.ts";
+import { useEffect, useState } from "react";
 import EditSVG from "../Components/SVGs/EditSVG.tsx";
 import Button from "../Components/Buttons/Button.tsx";
 import EditStringField from "../Components/EditFields/EditStringField.tsx";
@@ -10,7 +10,7 @@ import EditSpecificationsLine from "../Components/Lines/EditSpecificationsLine.t
 
 function PepperPage() {
 
-    const {pepperUuid}: Readonly<Params<string>> = useParams<{ pepperUuid: string }>();
+    const { pepperUuid }: Readonly<Params<string>> = useParams<{ pepperUuid: string }>();
     const [pepper, setPepper] = useState<Pepper>({
         uuid: '',
         name: '',
@@ -53,7 +53,7 @@ function PepperPage() {
     return !pepperUuid ? <div>No pepper UUID provided</div> : (
         <>
             <div className="flex flex-col items-center mx-5 my-6">
-                <div className="flex items-center">
+                <div className="flex items-center break-all w-full">
                     {/* On crée une div similaire invisible pour équilibrer et bien centrer le titre */}
                     {editMode ? (<></>) : (
                         <div className="flex-1 invisible">
@@ -61,51 +61,51 @@ function PepperPage() {
                         </div>
                     )}
                     <EditStringField className="text-5xl font-bold text-center mx-3"
-                                     pepper={pepper}
-                                     field={"name"}
-                                     setPepper={setPepper}
-                                     editable={editMode}
+                        pepper={pepper}
+                        field={"name"}
+                        setPepper={setPepper}
+                        editable={editMode}
                     />
                     {editMode ? (<></>) : (
                         <div className="flex-1 flex justify-end">
-                            <EditSVG onClick={() => {setEditMode(true)}} />
+                            <EditSVG onClick={() => { setEditMode(true) }} />
                         </div>
                     )}
                 </div>
                 <EditStringField className="text-2xl mt-3"
-                                 pepper={pepper}
-                                 field={"type"}
-                                 setPepper={setPepper}
-                                 editable={editMode}
+                    pepper={pepper}
+                    field={"type"}
+                    setPepper={setPepper}
+                    editable={editMode}
                 />
                 <EditStringField className="mt-1"
-                                 pepper={pepper}
-                                 field={"origin"}
-                                 setPepper={setPepper}
-                                 editable={editMode}
+                    pepper={pepper}
+                    field={"origin"}
+                    setPepper={setPepper}
+                    editable={editMode}
                 />
-                <EditStringField className="text-2xl mt-3"
-                                 pepper={pepper}
-                                 field={"desc"}
-                                 setPepper={setPepper}
-                                 editable={editMode}
+                <EditStringField className="text-2xl mt-3 break-all"
+                    pepper={pepper}
+                    field={"desc"}
+                    setPepper={setPepper}
+                    editable={editMode}
                 />
                 <EditSpecificationsLine className="mt-1"
-                                 pepper={pepper}
-                                 setPepper={setPepper}
-                                 editable={editMode}
+                    pepper={pepper}
+                    setPepper={setPepper}
+                    editable={editMode}
                 />
                 <div className={`flex flex-row justify-center items-center`}>
                     <EditStringField className="mt-1 mx-1"
-                                     pepper={pepper}
-                                     field={"kgPrice"}
-                                     setPepper={setPepper}
-                                     editable={editMode}
+                        pepper={pepper}
+                        field={"kgPrice"}
+                        setPepper={setPepper}
+                        editable={editMode}
                     /> €/kg
                 </div>
                 {editMode ? (
                     <Button onClick={handleFinishEdit}
-                            className={`my-5`}
+                        className={`my-5`}
                     >
                         Terminer
                     </Button>

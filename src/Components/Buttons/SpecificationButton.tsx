@@ -1,5 +1,5 @@
 import Button from "./Button.tsx";
-import PepperSpecificationsEnum, {getSpecificationValue} from "../../utils/PepperSpecificationsEnum.ts";
+import PepperSpecificationsEnum, { getSpecificationValue } from "../../utils/PepperSpecificationsEnum.ts";
 
 interface SpecificationButtonProps {
     specValue: keyof typeof PepperSpecificationsEnum | string,
@@ -16,7 +16,7 @@ interface SpecButtonProps {
 
 function SpecButton({ spec, onClick, className }: SpecButtonProps) {
     return (
-        <Button className={`${className}`} title={`Voir tous les poivres ${spec}`} onClick={onClick}>
+        <Button className={`${className}`} title={`Voir tous les poivres ${spec}`} onClick={onClick} key={spec}>
             {spec}
         </Button>
     )
@@ -28,7 +28,7 @@ export default function SpecificationButton({ specValue, onClick, editMode, clas
 
     return editMode ? (
         <SpecButton spec={spec} onClick={onClick} className={className} />
-        ) : (
+    ) : (
         <a href={`/specification/${spec}`}>
             <SpecButton spec={spec} onClick={onClick} className={className} />
         </a>

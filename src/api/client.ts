@@ -6,7 +6,7 @@ import PepperSpecifications from "../utils/PepperSpecificationsEnum.ts";
 const backendUrl: string = import.meta.env.VITE_BACKEND_URL;
 
 export async function getAllPeppers() {
-    const response = await axios.get(backendUrl + '/api/peppers/getAll');
+    const response = await axios.get(backendUrl + '/api/peppers/getAllValidated');
     return response.data;
 }
 
