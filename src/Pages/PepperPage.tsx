@@ -1,16 +1,18 @@
 import { Params, useParams } from "react-router-dom";
 import Pepper from "../interfaces/PepperInterface.ts";
-import { getPepper, updatePepper } from "../api/client.ts";
+import { deletePepper, getPepper, updatePepper } from "../api/client.ts";
 import { useEffect, useState } from "react";
 import EditSVG from "../Components/SVGs/EditSVG.tsx";
 import Button from "../Components/Buttons/Button.tsx";
 import EditStringField from "../Components/EditFields/EditStringField.tsx";
 import PepperTypeNames from "../utils/PepperTypeNames.ts";
 import EditSpecificationsLine from "../Components/Lines/EditSpecificationsLine.tsx";
+import { useAuth } from "../Components/Auth/AuthContext.tsx";
 
 function PepperPage() {
 
     const { pepperUuid }: Readonly<Params<string>> = useParams<{ pepperUuid: string }>();
+    const [errorText, setErrorText] = useState<string>('');
     const [pepper, setPepper] = useState<Pepper>({
         uuid: '',
         name: '',
@@ -20,6 +22,8 @@ function PepperPage() {
         kgPrice: 0,
         specifications: '',
     });
+
+    const profile = useAuth().profile;
 
     useEffect(() => {
         if (pepperUuid) {
@@ -46,8 +50,18 @@ function PepperPage() {
     const [editMode, setEditMode] = useState<boolean>(false);
 
     const handleFinishEdit = async () => {
-        await updatePepper(pepper);
-        setEditMode(false);
+        await updatePepper(pepper)
+            .then(() => {
+                setEditMode(false);
+                setErrorText('');
+            })
+            .catch(() => {
+                if (!pepper.specifications) {
+                    setErrorText("Le poivre doit avoir au moins une spécification.");
+                } else {
+                    setErrorText("Erreur lors de la mise à jour du poivre. Veuillez réessayer.");
+                }
+            });
     }
 
     return !pepperUuid ? <div>No pepper UUID provided</div> : (
@@ -103,13 +117,22 @@ function PepperPage() {
                         editable={editMode}
                     /> €/kg
                 </div>
-                {editMode ? (
+                {editMode && (
                     <Button onClick={handleFinishEdit}
                         className={`my-5`}
                     >
                         Terminer
                     </Button>
-                ) : <></>}
+                )}
+                {editMode && profile && profile.shouldBeAdmin && (
+                    <Button onClick={() => { deletePepper(pepper.uuid) }}
+                        className={`my-5 bg-red-700`}
+                    >
+                        Supprimer
+                    </Button>
+                )}
+
+                {errorText && <div className="text-red-500">{errorText}</div>}
             </div>
         </>
     )

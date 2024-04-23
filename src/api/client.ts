@@ -86,6 +86,11 @@ export async function updatePepper(pepper: Pepper) {
     return response.data;
 }
 
+export function getAccessToken() {
+    const user: string = localStorage.getItem("user") || "";
+    return JSON.parse(user).access_token;
+}
+
 export async function sendToken(token: string) {
     const response = await axios.get(
         backendUrl + '/api/users/auth/google',
@@ -96,5 +101,19 @@ export async function sendToken(token: string) {
             }
         }
     );
+    return response.data;
+}
+
+export async function validatePepper(uuid: string, accessToken: string) {
+    const response = await axios.get(
+        backendUrl + '/api/peppers/validate-pepper/' + uuid,
+        {
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${accessToken}`
+            }
+        }
+    );
+
     return response.data;
 }
