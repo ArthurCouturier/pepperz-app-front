@@ -44,20 +44,22 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
                     setSeeDetails(false);
                 }}
                 onClick={seeDetailsHandler}
+                key={pepperUuid}
             >
 
                 <div className={"flex flex-row justify-center items-center relative w-full"}>
                     {seeDetails && (
-                        <div className={`flex font-semibold justify-start items-center mr-3 ml-3`}>
+                        <div className={`flex font-semibold items-center mr-3 ml-3`}>
                             <EditSVG className={`opacity-0`} />
                         </div>
                     )}
                     <div
-                        className={`flex-grow font-bold justify-center items-center transform transition-all duration-300 ${isHovered ? 'scale-150' : 'scale-100'} flex justify-center`}>
+                        className={`flex-grow font-bold justify-center items-center transform transition-all duration-300 break-all ${isHovered ? 'scale-150' : 'scale-100'} flex justify-center`}
+                    >
                         {pepperName}
                     </div>
                     {seeDetails && (
-                        <div className={`flex font-semibold justify-end items-center mr-3 ml-3`}>
+                        <div className={`flex font-semibold items-center mr-3 ml-3`}>
                             <EditSVG href={`/pepper/${pepperUuid}`} />
                         </div>
                     )}
@@ -86,7 +88,7 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
                     <div className={`flex justify-center items-center flex-col`}>
                         <div className={"flex text-xs"}>
                             {pepperSpecifications ? (
-                                <SpecificationLine specifications={pepperSpecifications} />
+                                <SpecificationLine specifications={pepperSpecifications} key={pepperSpecifications} />
                             ) : (<>
                                 No specifications defined
                             </>)}
@@ -94,6 +96,7 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
                         {deletePepperHandler ?
                             <Button className={`bg-red-500 text-xs w-32 flex justify-center items-center my-1`}
                                 onClick={() => deleteHandler()}
+                                key={pepperUuid + "_delete"}
                             >
                                 Delete Pepper
                             </Button> : (<></>)

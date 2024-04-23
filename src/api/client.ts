@@ -6,7 +6,7 @@ import PepperSpecifications from "../utils/PepperSpecificationsEnum.ts";
 const backendUrl: string = import.meta.env.VITE_BACKEND_URL;
 
 export async function getAllPeppers() {
-    const response = await axios.get(backendUrl + '/api/peppers/getAll');
+    const response = await axios.get(backendUrl + '/api/peppers/getAllValidated');
     return response.data;
 }
 
@@ -47,6 +47,16 @@ export const fetchPeppersWithSpecification = async (specification: string | unde
         }
     }
 };
+
+export const fetchUnvalidatedPeppers = async (setPeppers: (pepperData: Pepper[]) => void, accessToken: string) => {
+    const response = await axios.get(backendUrl + '/api/peppers/getAllUnvalidated', {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`
+        }
+    });
+    setPeppers(response.data);
+    return response.data;
+}
 
 export async function deletePepperHandler(uuid: string, setPeppers: (pepperData: Pepper[]) => void) {
     await deletePepper(uuid);

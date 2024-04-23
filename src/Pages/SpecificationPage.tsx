@@ -22,7 +22,7 @@ function SpecificationPage() {
                 <div className={"grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4"}>
                     {peppers.map((pepper: Pepper) => {
                         return (
-                            <PepperCard className={"flex"} pepperJson={pepper} />
+                            <PepperCard className={"flex"} pepperJson={pepper} key={pepper.uuid} />
                         );
                     })}
                 </div>

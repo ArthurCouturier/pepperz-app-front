@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
 import { useAuth } from '../Components/Auth/AuthContext';
 
 function ProfilePage() {
+
     const { user, profile, login, logOut } = useAuth();
 
     return (
@@ -23,10 +25,12 @@ function ProfilePage() {
                     </button>
                 )
             }
+            {profile && profile?.shouldBeAdmin ? (
+                <Link to="/peppers/admin/validate"> Validate Peppers </Link>
+            ) : (<></>)
+            }
         </div>
-    )
-
-
+    );
 
 }
 

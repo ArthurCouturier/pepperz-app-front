@@ -37,6 +37,7 @@ function PepperTypeCard({ className, type }: PepperCardProps) {
                 onClick={() => {
                 }}
                 img={images[type]}
+                key={type}
             >
                 <div className={"mt-2 mx-auto text-center"}>
                     Poivres {PepperTypeNames[type].toLowerCase()}s

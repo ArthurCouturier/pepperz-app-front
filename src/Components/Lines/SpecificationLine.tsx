@@ -5,12 +5,12 @@ interface SpecificationLineProps {
     specifications: string;
 }
 
-function SpecificationLine({className, specifications}: SpecificationLineProps) {
+function SpecificationLine({ className, specifications }: SpecificationLineProps) {
 
     return (
         <div className={className}>
             {specifications.split(";").map((spec: string) => (
-                <SpecificationButton specValue={spec.trim()} editMode={false}/>
+                <SpecificationButton specValue={spec.trim()} editMode={false} key={spec} />
             ))}
         </div>
     )

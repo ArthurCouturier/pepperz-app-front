@@ -5,6 +5,7 @@ export interface UserProfile {
     email: string;
     picture: string;
     id: string;
+    shouldBeAdmin: boolean;
 }
 
 export interface AuthContextType {
