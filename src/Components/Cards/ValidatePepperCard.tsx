@@ -3,16 +3,17 @@ import Button from "../Buttons/Button";
 
 interface ValidatePepperCardProps {
     pepper: Pepper;
+    handleValidation: (uuid: string) => void;
 }
 
-function ValidatePepperCard({ pepper }: ValidatePepperCardProps) {
+function ValidatePepperCard({ pepper, handleValidation }: ValidatePepperCardProps) {
 
     return (
         <div key={pepper.uuid}>
             <div
                 className="font-serif border-2 border-black p-4 m-4 text-left flex flex-row"
             >
-                <div className="flex-1 flex-grow bg-red-500">
+                <div className="flex-1 flex-grow">
                     <h2>Name:</h2>
                     <h2>Uuid:</h2>
                     <h2>Origin:</h2>
@@ -20,7 +21,7 @@ function ValidatePepperCard({ pepper }: ValidatePepperCardProps) {
                     <h2>Price/Kg:</h2>
                     <h2>Specs:</h2>
                 </div>
-                <div className="flex-3 flex-grow bg-green-500">
+                <div className="flex-3 flex-grow">
                     <h2>{pepper.name}</h2>
                     <p>{pepper.uuid}</p>
                     <p>{pepper.origin}</p>
@@ -32,6 +33,7 @@ function ValidatePepperCard({ pepper }: ValidatePepperCardProps) {
             <div>
                 <Button
                     className="hover:bg-green-700"
+                    onClick={() => handleValidation(pepper.uuid)}
                 >
                     Valider
                 </Button>
