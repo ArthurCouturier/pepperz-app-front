@@ -1,6 +1,6 @@
 import { Params, useParams } from "react-router-dom";
 import Pepper from "../interfaces/PepperInterface.ts";
-import { deletePepper, getPepper, updatePepper } from "../api/client.ts";
+import { deletePepperWithoutAccessToken, getPepper, updatePepper } from "../api/client.ts";
 import { useEffect, useState } from "react";
 import EditSVG from "../Components/SVGs/EditSVG.tsx";
 import Button from "../Components/Buttons/Button.tsx";
@@ -125,7 +125,7 @@ function PepperPage() {
                     </Button>
                 )}
                 {editMode && profile && profile.shouldBeAdmin && (
-                    <Button onClick={() => { deletePepper(pepper.uuid) }}
+                    <Button onClick={() => { deletePepperWithoutAccessToken(pepper.uuid) }}
                         className={`my-5 bg-red-700`}
                     >
                         Supprimer

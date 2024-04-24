@@ -10,8 +10,27 @@ export async function getAllPeppers() {
     return response.data;
 }
 
-export async function deletePepper(uuid: string) {
-    const response = await axios.delete(backendUrl + '/api/peppers/deleteByUUid/' + uuid);
+export async function deletePepperWithoutAccessToken(uuid: string) {
+    const response = await axios.delete(
+        backendUrl + '/api/peppers/deleteByUUid/' + uuid,
+        {
+            headers: {
+                Authorization: `Bearer ${getAccessToken()}`
+            }
+        }
+    );
+    return response.data;
+}
+
+export async function deletePepper(uuid: string, accessToken: string) {
+    const response = await axios.delete(
+        backendUrl + '/api/peppers/deleteByUUid/' + uuid,
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        }
+    );
     return response.data;
 }
 
@@ -53,13 +72,16 @@ export const fetchUnvalidatedPeppers = async (setPeppers: (pepperData: Pepper[])
         headers: {
             "Authorization": `Bearer ${accessToken}`
         }
-    });
+    }).catch(() => { throw new Error("Failed to fetch unvalidated peppers") });
+    if (response.status !== 200) {
+        throw new Error("Failed to fetch unvalidated peppers");
+    }
     setPeppers(response.data);
     return response.data;
 }
 
 export async function deletePepperHandler(uuid: string, setPeppers: (pepperData: Pepper[]) => void) {
-    await deletePepper(uuid);
+    await deletePepper(uuid, getAccessToken());
     await fetchPeppers(setPeppers);
 }
 
