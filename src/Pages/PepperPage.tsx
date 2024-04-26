@@ -8,6 +8,7 @@ import EditStringField from "../Components/EditFields/EditStringField.tsx";
 import PepperTypeNames from "../utils/PepperTypeNames.ts";
 import EditSpecificationsLine from "../Components/Lines/EditSpecificationsLine.tsx";
 import { useAuth } from "../Components/Auth/AuthContext.tsx";
+import StarRating from "../Components/Forms/StarRating.tsx";
 
 function PepperPage() {
 
@@ -133,6 +134,10 @@ function PepperPage() {
                 )}
 
                 {errorText && <div className="text-red-500">{errorText}</div>}
+
+                {!editMode &&
+                    <StarRating />
+                }
             </div>
         </>
     )
