@@ -11,7 +11,7 @@ interface ButtonProps {
 function Button({ children, onClick, onMouseEnter, onMouseLeave, title, img, className }: ButtonProps) {
     return (
         <button
-            className={`p-2 mx-3 border-2 rounded-xl ${className}`}
+            className={`p-2 mx-3 border-2 rounded-xl bg-[#1a1a1a] ${className}`}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             onClick={onClick}

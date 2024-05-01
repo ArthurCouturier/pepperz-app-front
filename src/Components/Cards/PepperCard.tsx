@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Pepper from "../../interfaces/PepperInterface.ts";
 import EditSVG from "../SVGs/EditSVG.tsx";
 import SpecificationLine from "../Lines/SpecificationLine.tsx";
+import StarRating from "../Forms/StarRating.tsx";
 
 interface PepperCardProps {
     children?: React.ReactNode;
@@ -19,6 +20,7 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
     const pepperDesc: string = pepperJson.desc;
     const pepperKgPrice: number = pepperJson.kgPrice;
     const pepperSpecifications: string = pepperJson.specifications;
+    const pepperGlobalRate: number = pepperJson.globalRate;
 
     const [isHovered, setIsHovered] = useState(false);
     const [seeDetails, setSeeDetails] = useState<boolean>(false);
@@ -37,7 +39,7 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
         <>
             <Button className={`p-2 mx-3 my-3 border-2 rounded-xl flex flex-col transform transition-all duration-300 overflow-hidden
             ${className}
-            ${isHovered ? '' : 'h-16'}`}
+            ${isHovered ? '' : 'h-22'}`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => {
                     setIsHovered(false);
@@ -72,6 +74,10 @@ function PepperCard({ children, pepperJson, className, deletePepperHandler }: Pe
                     <div className={"italic text-xs mx-1"}>
                         {pepperKgPrice}€/kg
                     </div>
+                </div>
+
+                <div className="flex justify-center items-center w-full">
+                    <StarRating rateValue={pepperGlobalRate} />
                 </div>
 
                 {isHovered ?

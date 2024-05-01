@@ -4,9 +4,10 @@ import Button from "../Buttons/Button";
 interface ValidatePepperCardProps {
     pepper: Pepper;
     handleValidation: (uuid: string) => void;
+    handleRejection: (uuid: string) => void;
 }
 
-function ValidatePepperCard({ pepper, handleValidation }: ValidatePepperCardProps) {
+function ValidatePepperCard({ pepper, handleValidation, handleRejection }: ValidatePepperCardProps) {
 
     return (
         <div key={pepper.uuid}>
@@ -39,6 +40,7 @@ function ValidatePepperCard({ pepper, handleValidation }: ValidatePepperCardProp
                 </Button>
                 <Button
                     className="hover:bg-red-700"
+                    onClick={() => handleRejection(pepper.uuid)}
                 >
                     Rejeter
                 </Button>

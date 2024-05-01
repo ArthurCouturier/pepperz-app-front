@@ -2,6 +2,8 @@ import axios from "axios";
 import Pepper from "../interfaces/PepperInterface.ts";
 import PepperSpecificationsEnum from "../utils/PepperSpecificationsEnum.ts";
 import PepperSpecifications from "../utils/PepperSpecificationsEnum.ts";
+import { redirect } from "react-router-dom";
+import PepperRateInterface from "../interfaces/PepperRateInterface.ts";
 
 const backendUrl: string = import.meta.env.VITE_BACKEND_URL;
 
@@ -10,8 +12,27 @@ export async function getAllPeppers() {
     return response.data;
 }
 
-export async function deletePepper(uuid: string) {
-    const response = await axios.delete(backendUrl + '/api/peppers/deleteByUUid/' + uuid);
+export async function deletePepperWithoutAccessToken(uuid: string) {
+    const response = await axios.delete(
+        backendUrl + '/api/peppers/deleteByUUid/' + uuid,
+        {
+            headers: {
+                Authorization: `Bearer ${getAccessToken()}`
+            }
+        }
+    );
+    return response.data;
+}
+
+export async function deletePepper(uuid: string, accessToken: string) {
+    const response = await axios.delete(
+        backendUrl + '/api/peppers/deleteByUUid/' + uuid,
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        }
+    );
     return response.data;
 }
 
@@ -53,13 +74,16 @@ export const fetchUnvalidatedPeppers = async (setPeppers: (pepperData: Pepper[])
         headers: {
             "Authorization": `Bearer ${accessToken}`
         }
-    });
+    }).catch(() => { throw new Error("Failed to fetch unvalidated peppers") });
+    if (response.status !== 200) {
+        throw new Error("Failed to fetch unvalidated peppers");
+    }
     setPeppers(response.data);
     return response.data;
 }
 
 export async function deletePepperHandler(uuid: string, setPeppers: (pepperData: Pepper[]) => void) {
-    await deletePepper(uuid);
+    await deletePepper(uuid, getAccessToken());
     await fetchPeppers(setPeppers);
 }
 
@@ -116,4 +140,58 @@ export async function validatePepper(uuid: string, accessToken: string) {
     );
 
     return response.data;
+}
+
+export async function ratePepper(uuid: string, rating: number) {
+    const access_token: string = getAccessToken();
+    if (!access_token) {
+        redirect('/profile');
+    }
+
+    const response = await axios.post(
+        backendUrl + '/api/peppers/rate/' + uuid,
+        { rate: rating },  // Données à envoyer dans le corps de la requête
+        {
+            headers: {
+                Accept: "application/json",
+                Authorization: `${getAccessToken()}`
+            }
+        }
+    );
+
+    return response.data;
+}
+
+export async function getMyPepperRates() {
+    await axios.get(
+        backendUrl + '/api/peppers/getMyRates',
+        {
+            headers: {
+                Accept: "application/json",
+                Authorization: `${getAccessToken()}`
+            }
+        }
+    ).then((response) => {
+        const myRates: PepperRateInterface[] = []
+        response.data.forEach((rate: PepperRateInterface) => {
+            myRates.push(rate);
+        });
+        localStorage.setItem("myRates", JSON.stringify(myRates));
+    });
+}
+
+export function getMyLocalPepperRate(uuid: string): PepperRateInterface | undefined {
+    const myRates = JSON.parse(localStorage.getItem("myRates") || "[]");
+    return myRates.find((rate: PepperRateInterface) => rate.pepperUuid === uuid);
+}
+
+export function setMyLocalPepperRate(uuid: string, rate: PepperRateInterface) {
+    const myRates = JSON.parse(localStorage.getItem("myRates") || "[]");
+    const index = myRates.findIndex((rate: PepperRateInterface) => rate.pepperUuid === uuid);
+    if (index !== -1) {
+        myRates[index] = rate;
+    } else {
+        myRates.push(rate);
+    }
+    localStorage.setItem("myRates", JSON.stringify(myRates));
 }
