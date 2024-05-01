@@ -8,4 +8,5 @@ export default interface Pepper {
     desc: string;
     kgPrice: number;
     specifications: string;
+    globalRate: number;
 }

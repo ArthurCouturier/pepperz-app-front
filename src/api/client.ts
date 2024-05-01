@@ -2,6 +2,8 @@ import axios from "axios";
 import Pepper from "../interfaces/PepperInterface.ts";
 import PepperSpecificationsEnum from "../utils/PepperSpecificationsEnum.ts";
 import PepperSpecifications from "../utils/PepperSpecificationsEnum.ts";
+import { redirect } from "react-router-dom";
+import PepperRateInterface from "../interfaces/PepperRateInterface.ts";
 
 const backendUrl: string = import.meta.env.VITE_BACKEND_URL;
 
@@ -138,4 +140,58 @@ export async function validatePepper(uuid: string, accessToken: string) {
     );
 
     return response.data;
+}
+
+export async function ratePepper(uuid: string, rating: number) {
+    const access_token: string = getAccessToken();
+    if (!access_token) {
+        redirect('/profile');
+    }
+
+    const response = await axios.post(
+        backendUrl + '/api/peppers/rate/' + uuid,
+        { rate: rating },  // Données à envoyer dans le corps de la requête
+        {
+            headers: {
+                Accept: "application/json",
+                Authorization: `${getAccessToken()}`
+            }
+        }
+    );
+
+    return response.data;
+}
+
+export async function getMyPepperRates() {
+    await axios.get(
+        backendUrl + '/api/peppers/getMyRates',
+        {
+            headers: {
+                Accept: "application/json",
+                Authorization: `${getAccessToken()}`
+            }
+        }
+    ).then((response) => {
+        const myRates: PepperRateInterface[] = []
+        response.data.forEach((rate: PepperRateInterface) => {
+            myRates.push(rate);
+        });
+        localStorage.setItem("myRates", JSON.stringify(myRates));
+    });
+}
+
+export function getMyLocalPepperRate(uuid: string): PepperRateInterface | undefined {
+    const myRates = JSON.parse(localStorage.getItem("myRates") || "[]");
+    return myRates.find((rate: PepperRateInterface) => rate.pepperUuid === uuid);
+}
+
+export function setMyLocalPepperRate(uuid: string, rate: PepperRateInterface) {
+    const myRates = JSON.parse(localStorage.getItem("myRates") || "[]");
+    const index = myRates.findIndex((rate: PepperRateInterface) => rate.pepperUuid === uuid);
+    if (index !== -1) {
+        myRates[index] = rate;
+    } else {
+        myRates.push(rate);
+    }
+    localStorage.setItem("myRates", JSON.stringify(myRates));
 }

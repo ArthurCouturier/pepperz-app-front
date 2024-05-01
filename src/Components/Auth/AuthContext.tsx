@@ -5,7 +5,7 @@ import {
 } from "@react-oauth/google";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { AuthContextType, UserProfile } from "../../models/AuthModels";
-import { sendToken } from "../../api/client";
+import { getMyPepperRates, sendToken } from "../../api/client";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -40,6 +40,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setProfile(userProfile);
       localStorage.setItem("user", JSON.stringify(tokenResponse));
       localStorage.setItem("profile", JSON.stringify(userProfile));
+      getMyPepperRates();
     },
     onError: (error) => console.error("Login Failed:", error),
   });
@@ -50,6 +51,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setProfile(null);
     localStorage.removeItem("user");
     localStorage.removeItem("profile");
+    localStorage.removeItem("myRates");
   };
 
   useEffect(() => {

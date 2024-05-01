@@ -1,6 +1,6 @@
 import { Params, useParams } from "react-router-dom";
 import Pepper from "../interfaces/PepperInterface.ts";
-import { deletePepperWithoutAccessToken, getPepper, updatePepper } from "../api/client.ts";
+import { deletePepperWithoutAccessToken, getPepper, ratePepper, updatePepper } from "../api/client.ts";
 import { useEffect, useState } from "react";
 import EditSVG from "../Components/SVGs/EditSVG.tsx";
 import Button from "../Components/Buttons/Button.tsx";
@@ -22,9 +22,60 @@ function PepperPage() {
         desc: '',
         kgPrice: 0,
         specifications: '',
+        globalRate: 0,
     });
 
     const profile = useAuth().profile;
+
+    const [editMode, setEditMode] = useState<boolean>(false);
+
+    const handleFinishEdit = async () => {
+        await updatePepper(pepper)
+            .then(() => {
+                setEditMode(false);
+                setErrorText('');
+            })
+            .catch(() => {
+                if (!pepper.specifications) {
+                    setErrorText("Le poivre doit avoir au moins une spécification.");
+                } else {
+                    setErrorText("Erreur lors de la mise à jour du poivre. Veuillez réessayer.");
+                }
+            });
+    }
+
+    const [ratingText, setRatingText] = useState<string>('');
+
+    const handleRating = async (rating: number) => {
+
+        await ratePepper(pepper.uuid, rating)
+            .then(() => {
+                setRatingText(`Vous avez attribué la note de ${rating}/5 à ce poivre.`);
+
+
+                const fetchPepper = async () => {
+                    const fetchedPepper = await getPepper(pepper.uuid);
+                    setPepper(fetchedPepper);
+                };
+                fetchPepper();
+
+                if (pepper) {
+                    setPepper({
+                        uuid: pepper.uuid,
+                        name: pepper.name,
+                        type: pepper.type,
+                        origin: pepper.origin,
+                        desc: pepper.desc,
+                        specifications: pepper.specifications,
+                        kgPrice: pepper.kgPrice,
+                        globalRate: pepper.globalRate,
+                    });
+                }
+            })
+            .catch((err) => {
+                setRatingText(`Erreur lors de l'attribution de la note de ${err}/5 à ce poivre. Veuillez réessayer.`);
+            });
+    }
 
     useEffect(() => {
         if (pepperUuid) {
@@ -43,27 +94,13 @@ function PepperPage() {
                     desc: pepper.desc,
                     specifications: pepper.specifications,
                     kgPrice: pepper.kgPrice,
+                    globalRate: pepper.globalRate,
                 });
             }
+
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pepperUuid]);
-
-    const [editMode, setEditMode] = useState<boolean>(false);
-
-    const handleFinishEdit = async () => {
-        await updatePepper(pepper)
-            .then(() => {
-                setEditMode(false);
-                setErrorText('');
-            })
-            .catch(() => {
-                if (!pepper.specifications) {
-                    setErrorText("Le poivre doit avoir au moins une spécification.");
-                } else {
-                    setErrorText("Erreur lors de la mise à jour du poivre. Veuillez réessayer.");
-                }
-            });
-    }
 
     return !pepperUuid ? <div>No pepper UUID provided</div> : (
         <>
@@ -136,7 +173,14 @@ function PepperPage() {
                 {errorText && <div className="text-red-500">{errorText}</div>}
 
                 {!editMode &&
-                    <StarRating />
+                    <div className="flex flex-col justify-center">
+                        <p>Note moyenne de ce poivre:</p>
+                        <StarRating rateValue={pepper.globalRate} />
+
+                        <p>Ma note</p>
+                        <StarRating rateAction={handleRating} pepperUuid={pepper.uuid} />
+                        {ratingText}
+                    </div>
                 }
             </div>
         </>
